@@ -8,7 +8,7 @@ interface AnyDmProps {
 }
 
 const anyDm = ({ app, message }: AnyDmProps) => {
-  app.logger.debug('Got a Dm message');
+  app.logger.debug('Got a DM');
 
   message.reply(messages.canApply);
 };

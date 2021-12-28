@@ -1,15 +1,18 @@
 import * as dotenv from 'dotenv';
+import { BOT_SECRET_TOKEN, LOG_LEVEL } from 'src/config';
 import { initBot } from './API/bot';
 import { initApp, initLogger } from './app';
 
 dotenv.config();
 
 async function main() {
-  const logger = initLogger();
+  const logger = initLogger(LOG_LEVEL);
 
   try {
     const app = initApp(logger);
-    await initBot({ app });
+
+    if (!BOT_SECRET_TOKEN) throw new Error('No discord API token');
+    await initBot({ app, token: BOT_SECRET_TOKEN });
 
     app.logger.info('Listening...');
   } catch (e) {
