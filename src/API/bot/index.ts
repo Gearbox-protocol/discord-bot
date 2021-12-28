@@ -1,22 +1,28 @@
-import { Client, Intents } from 'discord.js';
+import { Client, Intents, ClientOptions } from 'discord.js';
 import { App } from 'src/app';
 import { BOT_SECRET_TOKEN } from 'src/config';
 import { onMessage } from 'src/API/messages';
+
+const allIntents = new Intents(32767);
+
+const botConfig: ClientOptions = {
+  intents: allIntents,
+  partials: ['CHANNEL'],
+};
 
 interface InitBotProps {
   app: App;
 }
 
-const initBot = ({ app }: InitBotProps) => {
-  app.logger.debug(`Bot loaded with token: ${BOT_SECRET_TOKEN}`);
+const initBot = async ({ app }: InitBotProps) => {
+  const client = new Client(botConfig);
 
-  const intents = new Intents(32767);
-  const client = new Client({ intents });
+  client.on('messageCreate', onMessage({ app }));
 
-  client.on('message', onMessage({ app }));
-  client.login(BOT_SECRET_TOKEN);
+  await client.login(BOT_SECRET_TOKEN);
+  app.logger.debug(`Bot logged in with token: ${BOT_SECRET_TOKEN}`);
 
-  app.logger.info('Bot created with token');
+  app.logger.info('Bot created');
   return client;
 };
 

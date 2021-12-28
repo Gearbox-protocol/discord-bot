@@ -4,11 +4,11 @@ import { initApp } from './app';
 
 dotenv.config();
 
-function main() {
+async function main() {
   const app = initApp();
-  initBot({ app });
+  await initBot({ app });
 
-  app.logger.debug('Listening...');
+  app.logger.info('Listening...');
 }
 
 main();
