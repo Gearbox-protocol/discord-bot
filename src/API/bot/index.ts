@@ -15,15 +15,19 @@ interface InitBotProps {
 }
 
 const initBot = async ({ app }: InitBotProps) => {
-  const client = new Client(botConfig);
+  try {
+    const client = new Client(botConfig);
 
-  client.on('messageCreate', onMessage({ app }));
+    client.on('messageCreate', onMessage({ app }));
 
-  await client.login(BOT_SECRET_TOKEN);
-  app.logger.debug(`Bot logged in with token: ${BOT_SECRET_TOKEN}`);
+    await client.login(BOT_SECRET_TOKEN);
+    app.logger.debug(`Bot logged in with token: ${BOT_SECRET_TOKEN}`);
 
-  app.logger.info('Bot created');
-  return client;
+    app.logger.info('Bot created');
+    return client;
+  } catch (e) {
+    app.logger.error(e, 'initBot error');
+  }
 };
 
 export { initBot };

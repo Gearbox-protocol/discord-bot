@@ -13,23 +13,27 @@ interface OnMessageProps {
 const onMessage =
   ({ app }: OnMessageProps) =>
   (message: Message<boolean>) => {
-    if (!properMessage(message)) return;
+    try {
+      if (!properMessage(message)) return;
 
-    if (!message.content.startsWith(COMMAND_PREFIX)) {
-      anyDm({ app, message });
-      return;
-    }
-
-    const [command, arg] = processCommand(message.content);
-
-    switch (true) {
-      case isApplyCommand(command): {
-        apply({ app, message, address: arg });
-        break;
+      if (!message.content.startsWith(COMMAND_PREFIX)) {
+        anyDm({ app, message });
+        return;
       }
-      default:
-        unknownCommand({ app, message, command });
-        break;
+
+      const [command, arg] = processCommand(message.content);
+
+      switch (true) {
+        case isApplyCommand(command): {
+          apply({ app, message, address: arg });
+          break;
+        }
+        default:
+          unknownCommand({ app, message, command });
+          break;
+      }
+    } catch (e) {
+      app.logger.error(e, 'onMessage error');
     }
   };
 

@@ -5,10 +5,13 @@ interface App {
   logger: Logger;
 }
 
-const initApp = (): App => {
+const initLogger = (): Logger => {
   const logger = pino({ level: LOG_LEVEL });
   logger.debug(`Logger created with level: ${LOG_LEVEL}`);
+  return logger;
+};
 
+const initApp = (logger: Logger): App => {
   logger.info('App created');
   return {
     logger,
@@ -16,4 +19,4 @@ const initApp = (): App => {
 };
 
 export type { App };
-export { initApp };
+export { initApp, initLogger };

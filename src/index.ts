@@ -1,14 +1,20 @@
 import * as dotenv from 'dotenv';
 import { initBot } from './API/bot';
-import { initApp } from './app';
+import { initApp, initLogger } from './app';
 
 dotenv.config();
 
 async function main() {
-  const app = initApp();
-  await initBot({ app });
+  const logger = initLogger();
 
-  app.logger.info('Listening...');
+  try {
+    const app = initApp(logger);
+    await initBot({ app });
+
+    app.logger.info('Listening...');
+  } catch (e) {
+    logger.error(e, 'main error');
+  }
 }
 
 main();
