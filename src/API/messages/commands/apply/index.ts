@@ -1,7 +1,7 @@
 import { App } from 'src/app';
 import { UserStatus } from 'src/API/db';
 import { utils } from 'ethers';
-import { Message } from 'discord.js';
+import type { Message } from '../../';
 import { replyStatus } from '../anyDm';
 import { messages } from './messages';
 
@@ -9,7 +9,7 @@ const { isAddress } = utils;
 
 interface ApplyProps {
   app: App;
-  message: Message<boolean>;
+  message: Message;
   address: string;
 }
 

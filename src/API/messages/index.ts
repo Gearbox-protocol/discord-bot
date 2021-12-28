@@ -1,9 +1,8 @@
 import { App } from 'src/app';
-import { Message } from 'discord.js';
+import { Message as DiscordMessage } from 'discord.js';
 import { apply } from './commands/apply';
 import { anyDm } from './commands/anyDm';
-import { unknownCommand } from './commands/unknownCommand';
-import { processCommand, properMessage, isCommand } from './helpers';
+import { processCommand, properMessage } from './helpers';
 
 interface OnMessageProps {
   app: App;
@@ -11,9 +10,11 @@ interface OnMessageProps {
 
 type KnownCommands = 'apply';
 
+type Message = DiscordMessage;
+
 const onMessage =
   ({ app }: OnMessageProps) =>
-  (message: Message<boolean>) => {
+  (message: Message) => {
     try {
       if (!properMessage(message)) return;
 
@@ -33,5 +34,5 @@ const onMessage =
     }
   };
 
-export type { KnownCommands };
+export type { KnownCommands, Message };
 export { onMessage };

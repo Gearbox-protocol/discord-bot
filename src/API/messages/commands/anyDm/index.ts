@@ -1,14 +1,14 @@
 import { App } from 'src/app';
 import { UserStatus } from 'src/API/db';
-import { Message } from 'discord.js';
+import type { Message } from '../../';
 import { messages } from './messages';
 
 interface AnyDmProps {
   app: App;
-  message: Message<boolean>;
+  message: Message;
 }
 
-const replyStatus = (message: Message<boolean>, status: UserStatus) => {
+const replyStatus = (message: Message, status: UserStatus) => {
   switch (status) {
     case UserStatus.IN_SNAPSHOT:
       message.reply(messages.inSnapshot);
