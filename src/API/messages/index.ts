@@ -1,6 +1,10 @@
 import { App } from 'src/app';
 import { Message } from 'discord.js';
-import { COMMAND_PREFIX, COMMAND_SEPARATOR } from 'src/config';
+import { COMMAND_PREFIX } from 'src/config';
+import { isApplyCommand, apply } from './commands/apply';
+import { anyDm } from './commands/anyDM';
+import { unknownCommand } from './commands/unknownCommand';
+import { processCommand, properMessage } from './helpers';
 
 interface OnMessageProps {
   app: App;
@@ -9,17 +13,23 @@ interface OnMessageProps {
 const onMessage =
   ({ app }: OnMessageProps) =>
   (message: Message<boolean>) => {
-    if (message.author.bot) return;
-    if (!message.content.startsWith(COMMAND_PREFIX)) return;
+    if (!properMessage(message)) return;
 
-    const commandBody = message.content.slice(COMMAND_PREFIX.length);
-    const args = commandBody.split(COMMAND_SEPARATOR);
-    const command = (args.shift() || '').toLowerCase();
+    if (!message.content.startsWith(COMMAND_PREFIX)) {
+      anyDm({ app, message });
+      return;
+    }
 
-    if (command === 'ping') {
-      app.logger.debug('Got ping command');
-      const timeTaken = Date.now() - message.createdTimestamp;
-      message.reply(`Pong! This message had a latency of ${timeTaken}ms.`);
+    const [command, arg] = processCommand(message.content);
+
+    switch (true) {
+      case isApplyCommand(command): {
+        apply({ app, message, address: arg });
+        break;
+      }
+      default:
+        unknownCommand({ app, message, command });
+        break;
     }
   };
 
