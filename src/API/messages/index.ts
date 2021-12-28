@@ -17,11 +17,6 @@ const onMessage =
     try {
       if (!properMessage(message)) return;
 
-      if (!isCommand(message.content)) {
-        anyDm({ app, message });
-        return;
-      }
-
       const [command, arg] = processCommand(message.content);
 
       switch (command) {
@@ -30,7 +25,7 @@ const onMessage =
           break;
         }
         default:
-          unknownCommand({ app, message, command });
+          anyDm({ app, message });
           break;
       }
     } catch (e) {

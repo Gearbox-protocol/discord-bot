@@ -1,7 +1,8 @@
 import * as dotenv from 'dotenv';
 import { BOT_SECRET_TOKEN, LOG_LEVEL } from 'src/config';
 import { initBot } from './API/bot';
-import { initApp, initLogger } from './app';
+import { initLogger } from './API/logger';
+import { initApp } from './app';
 
 dotenv.config();
 

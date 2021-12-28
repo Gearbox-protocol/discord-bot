@@ -13,6 +13,7 @@
   "dependencies": {
     "discord.js": "^13.3.1",
     "dotenv": "^10.0.0",
+    "ethers": "^5.5.2",
     "pino": "^7.6.0"
   },
   "engines": {

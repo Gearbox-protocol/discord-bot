@@ -1,21 +1,21 @@
-import pino, { Logger } from 'pino';
+import { Logger } from 'src/API/logger';
+import { initDb, Database } from 'src/API/db';
 
 interface App {
   logger: Logger;
+  db: Database;
 }
 
-const initLogger = (level: string): Logger => {
-  const logger = pino({ level });
-  logger.debug(`Logger created with level: ${level}`);
-  return logger;
-};
-
 const initApp = (logger: Logger): App => {
+  const db = initDb();
+  logger.info('DB created');
+
   logger.info('App created');
   return {
     logger,
+    db,
   };
 };
 
 export type { App };
-export { initApp, initLogger };
+export { initApp };
