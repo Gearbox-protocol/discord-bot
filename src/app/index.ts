@@ -6,8 +6,8 @@ interface App {
   db: Database;
 }
 
-const initApp = (logger: Logger): App => {
-  const db = initDb(logger);
+const initApp = async (logger: Logger): Promise<App> => {
+  const db = await initDb(logger);
 
   logger.info('App created');
   return {

@@ -1,13 +1,16 @@
 import { Logger } from 'src/API/logger';
+import { Pool } from 'pg';
+import { connectDb, initTables } from './init';
+import { checkUserInSnapshot, checkUserInApplied, insertAppliedUser } from './actions';
 
 interface Database {
-  checkUser: (userTag: string) => UserStatus;
-  addUser: (userTag: string, userAddress: string) => void;
+  checkUser: (userTag: string) => Promise<UserStatus>;
+  addUser: (userTag: string, userAddress: string) => Promise<void>;
 }
 
 interface DbInstance {
-  table1: {};
-  table2: {};
+  pool: Pool;
+  logger: Logger;
 }
 
 enum UserStatus {
@@ -18,12 +21,12 @@ enum UserStatus {
 
 const checkUser =
   (db: DbInstance): Database['checkUser'] =>
-  (userTag: string): UserStatus => {
-    const userCanApply = userTag in db.table1;
+  async (tag: string): Promise<UserStatus> => {
+    const userCanApply = await checkUserInSnapshot(db, tag);
 
     if (!userCanApply) return UserStatus.NOT_IN_SNAPSHOT;
 
-    const applied = userTag in db.table2;
+    const applied = await checkUserInApplied(db, tag);
 
     if (applied) return UserStatus.APPLIED;
 
@@ -32,19 +35,20 @@ const checkUser =
 
 const addUser =
   (db: DbInstance): Database['addUser'] =>
-  (userTag, userAddress) => {
-    const applied = userTag in db.table2;
+  async (tag, address) => {
+    const applied = await checkUserInApplied(db, tag);
     if (applied) return;
 
-    db.table2[userTag] = userAddress;
+    await insertAppliedUser(db, tag, address);
   };
 
-const initDb = (logger: Logger): Database => {
-  const db = {
-    table1: {
-      'blizzz93#1279': true,
-    },
-    table2: {},
+const initDb = async (logger: Logger): Promise<Database> => {
+  const pool = await connectDb(logger);
+  await initTables(pool, logger);
+
+  const db: DbInstance = {
+    pool,
+    logger,
   };
 
   logger.info('DB created');
@@ -54,5 +58,5 @@ const initDb = (logger: Logger): Database => {
   };
 };
 
-export type { Database };
+export type { Database, DbInstance };
 export { initDb, UserStatus };

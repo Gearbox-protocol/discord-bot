@@ -23,11 +23,11 @@ const replyStatus = (message: Message, status: UserStatus) => {
   }
 };
 
-const anyDm = ({ app, message }: AnyDmProps) => {
+const anyDm = async ({ app, message }: AnyDmProps) => {
   const tag = message.author.tag;
   app.logger.debug(`Got a DM from: ${tag}`);
 
-  const status = app.db.checkUser(tag);
+  const status = await app.db.checkUser(tag);
 
   replyStatus(message, status);
 };

@@ -13,11 +13,11 @@ interface ApplyProps {
   address: string;
 }
 
-const apply = ({ app, message, address }: ApplyProps) => {
+const apply = async ({ app, message, address }: ApplyProps) => {
   app.logger.debug(`Got apply command with address: ${address}`);
 
   const tag = message.author.tag;
-  const status = app.db.checkUser(tag);
+  const status = await app.db.checkUser(tag);
 
   if (status !== UserStatus.IN_SNAPSHOT) {
     replyStatus(message, status);
@@ -27,7 +27,7 @@ const apply = ({ app, message, address }: ApplyProps) => {
       message.reply(messages.wrongAddress);
       return;
     }
-    app.db.addUser(tag, address);
+    await app.db.addUser(tag, address);
     message.reply(messages.success);
   }
 };

@@ -10,7 +10,7 @@ async function main() {
   const logger = initLogger(LOG_LEVEL);
 
   try {
-    const app = initApp(logger);
+    const app = await initApp(logger);
 
     if (!BOT_SECRET_TOKEN) throw new Error('No discord API token');
     await initBot({ app, token: BOT_SECRET_TOKEN });
