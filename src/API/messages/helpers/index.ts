@@ -15,4 +15,6 @@ const properMessage = (message: Message<boolean>) => {
   return true;
 };
 
-export { processCommand, properMessage };
+const isCommand = (message: string) => message.startsWith(COMMAND_PREFIX);
+
+export { processCommand, properMessage, isCommand };

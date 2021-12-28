@@ -14,7 +14,5 @@ const apply = ({ app, message, address }: ApplyProps) => {
   message.reply(`Pong! This message had a latency of ${timeTaken}ms.`);
 };
 
-const isApplyCommand = (command: string) => command === 'apply';
-
 export type { ApplyProps };
-export { apply, isApplyCommand };
+export { apply };

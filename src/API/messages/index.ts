@@ -1,14 +1,15 @@
 import { App } from 'src/app';
 import { Message } from 'discord.js';
-import { COMMAND_PREFIX } from 'src/config';
-import { isApplyCommand, apply } from './commands/apply';
+import { apply } from './commands/apply';
 import { anyDm } from './commands/anyDm';
 import { unknownCommand } from './commands/unknownCommand';
-import { processCommand, properMessage } from './helpers';
+import { processCommand, properMessage, isCommand } from './helpers';
 
 interface OnMessageProps {
   app: App;
 }
+
+type KnownCommands = 'apply';
 
 const onMessage =
   ({ app }: OnMessageProps) =>
@@ -16,15 +17,15 @@ const onMessage =
     try {
       if (!properMessage(message)) return;
 
-      if (!message.content.startsWith(COMMAND_PREFIX)) {
+      if (!isCommand(message.content)) {
         anyDm({ app, message });
         return;
       }
 
       const [command, arg] = processCommand(message.content);
 
-      switch (true) {
-        case isApplyCommand(command): {
+      switch (command) {
+        case 'apply': {
           apply({ app, message, address: arg });
           break;
         }
@@ -37,4 +38,5 @@ const onMessage =
     }
   };
 
+export type { KnownCommands };
 export { onMessage };
