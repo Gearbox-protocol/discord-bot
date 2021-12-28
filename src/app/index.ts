@@ -7,8 +7,7 @@ interface App {
 }
 
 const initApp = (logger: Logger): App => {
-  const db = initDb();
-  logger.info('DB created');
+  const db = initDb(logger);
 
   logger.info('App created');
   return {

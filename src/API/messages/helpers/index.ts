@@ -1,8 +1,8 @@
 import { Message } from 'discord.js';
 import { COMMAND_PREFIX, COMMAND_SEPARATOR } from 'src/config';
 
-const processCommand = (message: string) => {
-  const commandBody = message.slice(COMMAND_PREFIX.length);
+const processCommand = (messageBody: string) => {
+  const commandBody = messageBody.slice(COMMAND_PREFIX.length);
   const [command, arg] = commandBody.split(COMMAND_SEPARATOR, 2);
 
   return [command.toLowerCase(), arg];
@@ -15,6 +15,6 @@ const properMessage = (message: Message<boolean>) => {
   return true;
 };
 
-const isCommand = (message: string) => message.startsWith(COMMAND_PREFIX);
+const isCommand = (messageBody: string) => messageBody.startsWith(COMMAND_PREFIX);
 
 export { processCommand, properMessage, isCommand };

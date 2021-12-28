@@ -1,3 +1,5 @@
+import { Logger } from 'src/API/logger';
+
 interface Database {
   checkUser: (userTag: string) => UserStatus;
   addUser: (userTag: string, userAddress: string) => void;
@@ -37,13 +39,15 @@ const addUser =
     db.table2[userTag] = userAddress;
   };
 
-const initDb = (): Database => {
+const initDb = (logger: Logger): Database => {
   const db = {
     table1: {
       'blizzz93#1279': true,
     },
     table2: {},
   };
+
+  logger.info('DB created');
   return {
     checkUser: checkUser(db),
     addUser: addUser(db),
