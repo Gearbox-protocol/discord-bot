@@ -2,7 +2,7 @@ import { App } from 'src/app';
 import { Message } from 'discord.js';
 import { COMMAND_PREFIX } from 'src/config';
 import { isApplyCommand, apply } from './commands/apply';
-import { anyDm } from './commands/anyDM';
+import { anyDm } from './commands/anyDm';
 import { unknownCommand } from './commands/unknownCommand';
 import { processCommand, properMessage } from './helpers';
 

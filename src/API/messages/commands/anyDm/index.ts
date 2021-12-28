@@ -1,5 +1,6 @@
 import { App } from 'src/app';
 import { Message } from 'discord.js';
+import { messages } from './messages';
 
 interface AnyDmProps {
   app: App;
@@ -9,7 +10,7 @@ interface AnyDmProps {
 const anyDm = ({ app, message }: AnyDmProps) => {
   app.logger.debug('Got a Dm message');
 
-  message.reply(`Thanks for Dm`);
+  message.reply(messages.canApply);
 };
 
 export type { AnyDmProps };

@@ -1,5 +1,6 @@
 import { App } from 'src/app';
 import { Message } from 'discord.js';
+import { messages } from './messages';
 
 interface UnknownCommandProps {
   app: App;
@@ -9,7 +10,7 @@ interface UnknownCommandProps {
 
 const unknownCommand = ({ app, message, command }: UnknownCommandProps) => {
   app.logger.debug(`Got unknown command: ${command}`);
-  message.reply('Unknown command');
+  message.reply(messages.unknownCommand);
 };
 
 export type { UnknownCommandProps };
