@@ -16,7 +16,7 @@
     "pino": "^7.6.0"
   },
   "engines": {
-    "node": "16.x"
+    "node": ">=16.x"
   },
   "devDependencies": {
     "@types/node": "^17.0.2",
