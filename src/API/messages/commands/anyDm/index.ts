@@ -1,6 +1,7 @@
 import { Message as DiscordMessage } from 'discord.js';
 import { App } from 'src/app';
 import { UserStatus } from 'src/API/db';
+import { getTag } from '../../helpers';
 import { messages } from './messages';
 
 interface AnyDmProps {
@@ -24,7 +25,7 @@ const replyOnStatus = (message: DiscordMessage, status: UserStatus) => {
 };
 
 const anyDm = async ({ app, message }: AnyDmProps) => {
-  const tag = message.author.tag;
+  const tag = getTag(message);
   app.logger.debug(`Got a DM from: ${tag}`);
 
   const status = await app.db.checkUser(tag);

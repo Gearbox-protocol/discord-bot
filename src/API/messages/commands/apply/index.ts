@@ -3,6 +3,7 @@ import { App } from 'src/app';
 import { UserStatus } from 'src/API/db';
 import { Message as DiscordMessage } from 'discord.js';
 import { replyOnStatus } from '../anyDm';
+import { getTag } from '../../helpers';
 import { messages } from './messages';
 
 const { isAddress } = utils;
@@ -16,7 +17,7 @@ interface ApplyProps {
 const apply = async ({ app, message, address }: ApplyProps) => {
   app.logger.debug(`Got apply command with address: ${address}`);
 
-  const tag = message.author.tag;
+  const tag = getTag(message);
   const status = await app.db.checkUser(tag);
 
   if (status !== UserStatus.IN_SNAPSHOT) {

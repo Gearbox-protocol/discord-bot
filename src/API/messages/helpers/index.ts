@@ -15,6 +15,11 @@ const properMessage = (message: DiscordMessage) => {
   return true;
 };
 
+const getTag = (message: DiscordMessage) => {
+  const tag = message.author.tag;
+  return Buffer.from(tag).toString('base64');
+};
+
 const isCommand = (messageBody: string) => messageBody.startsWith(commandSettings.COMMAND_PREFIX);
 
-export { processCommand, properMessage, isCommand };
+export { processCommand, properMessage, isCommand, getTag };

@@ -49,7 +49,7 @@ const connectDb = async (logger: Logger, config: DbConfig): Promise<Pool> => {
   return pool;
 };
 
-const testUser = ['blizzz93#1279', 30000];
+const testUser = ['Ymxpenp6OTPlk4jllr0jMTI3OQ==', 30000];
 
 const insertUser = async (pool: Pool) => {
   await pool.query(queries.insertToUsers, testUser);
@@ -72,6 +72,10 @@ const initTables = async (pool: Pool, logger: Logger) => {
 
   const [count, appliedCount] = await countUsers(pool);
   logger.debug(`Users table count: ${count}; Applied users table count: ${appliedCount}`);
+
+  if (count === 0) {
+    await insertUser(pool);
+  }
 };
 
 export type { DbConfig };
