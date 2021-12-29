@@ -1,6 +1,6 @@
 import { Message as DiscordMessage } from 'discord.js';
 import { App } from 'src/app';
-import { apply } from './commands/apply';
+import { address } from './commands/address';
 import { anyDm } from './commands/anyDm';
 import { processCommand, properMessage } from './helpers';
 
@@ -8,7 +8,7 @@ interface OnMessageProps {
   app: App;
 }
 
-type KnownCommands = 'apply';
+type KnownCommands = 'address';
 
 const onMessage =
   ({ app }: OnMessageProps) =>
@@ -19,8 +19,8 @@ const onMessage =
       const [command, arg] = processCommand(message.content);
 
       switch (command) {
-        case 'apply': {
-          await apply({ app, message, address: arg });
+        case 'address': {
+          await address({ app, message, address: arg });
           break;
         }
         default:

@@ -14,8 +14,8 @@ interface ApplyProps {
   address: string;
 }
 
-const apply = async ({ app, message, address }: ApplyProps) => {
-  app.logger.debug(`Got apply command with address: ${address}`);
+const address = async ({ app, message, address }: ApplyProps) => {
+  app.logger.debug(`Got address command with address: ${address}`);
 
   const tag = getTag(message);
   const status = await app.db.checkUser(tag);
@@ -34,4 +34,4 @@ const apply = async ({ app, message, address }: ApplyProps) => {
 };
 
 export type { ApplyProps };
-export { apply };
+export { address };
