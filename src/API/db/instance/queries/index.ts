@@ -18,7 +18,7 @@ const queries = {
   usersTable: `
     CREATE TABLE IF NOT EXISTS ${Tables.USERS} (
         ${UserTable.ID} TEXT NOT NULL PRIMARY KEY,
-        ${UserTable.TOKENS} INTEGER NOT NULL
+        ${UserTable.TOKENS} MONEY NOT NULL
     )`,
   appliedUsersTable: `
     CREATE TABLE IF NOT EXISTS ${Tables.USERS_APPLIED} (

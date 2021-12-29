@@ -3,3 +3,4 @@ node_modules
 dist
 .env.start
 .env.dev
+users.csv
