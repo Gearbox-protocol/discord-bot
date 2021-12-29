@@ -1,13 +1,18 @@
 import { Logger } from 'src/API/logger';
-import { initDb, Database } from 'src/API/db';
+import { initDb, Database, DbConfig } from 'src/API/db';
 
 interface App {
   logger: Logger;
   db: Database;
 }
 
-const initApp = async (logger: Logger): Promise<App> => {
-  const db = await initDb(logger);
+interface AppProps {
+  logger: Logger;
+  dbConfig: DbConfig;
+}
+
+const initApp = async ({ logger, dbConfig }: AppProps): Promise<App> => {
+  const db = await initDb(logger, dbConfig);
 
   logger.info('App created');
   return {
