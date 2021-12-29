@@ -1,6 +1,6 @@
 import { Pool, QueryResult } from 'pg';
 import { Logger } from 'src/API/logger';
-import { queries } from '../queries';
+import { queries, Tables } from '../queries';
 
 interface DbConfig {
   isProduction: boolean;
@@ -49,27 +49,26 @@ const connectDb = async (logger: Logger, config: DbConfig): Promise<Pool> => {
   return pool;
 };
 
-const insertUserQuery = 'INSERT INTO users (discordId, tokens) VALUES($1, $2);';
 const testUser = ['blizzz93#1279', 30000];
 
 const insertUser = async (pool: Pool) => {
-  await pool.query(insertUserQuery, testUser);
+  await pool.query(queries.insertToUsers, testUser);
 };
 
 interface UserCount {
-  usersCount: string;
-  appliedUsersCount: string;
+  users_count: string;
+  applied_users_count: string;
 }
 
+const allUsers = `SELECT (${queries.countUsers}) AS users_count, (${queries.countAppliedUsers}) AS applied_users_count`;
+
 const countUsers = async (pool: Pool) => {
-  const res: QueryResult<UserCount> = await pool.query(
-    `${queries.countUsers} ${queries.countAppliedUsers}`,
-  );
-  return [Number(res.rows[0].usersCount), Number(res.rows[0].appliedUsersCount)];
+  const res: QueryResult<UserCount> = await pool.query(allUsers);
+  return [Number(res.rows[0].users_count), Number(res.rows[0].applied_users_count)];
 };
 
 const initTables = async (pool: Pool, logger: Logger) => {
-  await pool.query(`${queries.usersTable} ${queries.appliedUsersTable}`);
+  await pool.query(`${queries.usersTable}; ${queries.appliedUsersTable}`);
 
   const [count, appliedCount] = await countUsers(pool);
   logger.debug(`Users table count: ${count}; Applied users table count: ${appliedCount}`);

@@ -19,15 +19,28 @@ const queries = {
     CREATE TABLE IF NOT EXISTS ${Tables.USERS} (
         ${UserTable.ID} TEXT NOT NULL PRIMARY KEY,
         ${UserTable.TOKENS} INTEGER NOT NULL
-    );`,
+    )`,
   appliedUsersTable: `
     CREATE TABLE IF NOT EXISTS ${Tables.USERS_APPLIED} (
         ${AppliedUserTable.ID} TEXT NOT NULL PRIMARY KEY REFERENCES ${Tables.USERS} (${UserTable.ID}),
         ${AppliedUserTable.ADDRESS} TEXT NOT NULL,
         ${AppliedUserTable.CREATED_AT} TIMESTAMP DEFAULT NOW()
-    );`,
-  countUsers: `SELECT usersCount(*) FROM ${Tables.USERS};`,
-  countAppliedUsers: `SELECT appliedUsersCount(*) FROM ${Tables.USERS_APPLIED};`,
+    )`,
+
+  countUsers: `SELECT count(*) FROM ${Tables.USERS}`,
+  countAppliedUsers: `SELECT count(*) FROM ${Tables.USERS_APPLIED}`,
+
+  insertToUsers: `INSERT INTO ${Tables.USERS} (${UserTable.ID}, ${UserTable.TOKENS}) VALUES($1, $2)`,
+  insertToAppliedUsers: `INSERT INTO ${Tables.USERS_APPLIED} (${AppliedUserTable.ID}, ${AppliedUserTable.ADDRESS}) VALUES($1, $2)`,
+
+  checkExistenceInUsers: `
+    SELECT EXISTS (
+        SELECT 1 FROM ${Tables.USERS} WHERE ${UserTable.ID}=$1
+    )`,
+  checkExistenceInAppliedUsers: `
+    SELECT EXISTS (
+        SELECT 1 FROM ${Tables.USERS_APPLIED} WHERE ${AppliedUserTable.ID}=$1
+    )`,
 } as const;
 
 export { queries, Tables, UserTable, AppliedUserTable };

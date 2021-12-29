@@ -1,10 +1,6 @@
 import { QueryResult } from 'pg';
+import { queries } from '../queries';
 import { DbInstance } from '../';
-
-const selectUser = `
-SELECT EXISTS (
-    SELECT 1 FROM users WHERE discordId=$1
-)`;
 
 interface UserExists {
   exists: boolean;
@@ -12,26 +8,21 @@ interface UserExists {
 
 const checkUserInSnapshot = (db: DbInstance) => async (tag: string) => {
   db.logger.debug('Checking user in snapshot...');
-  const res: QueryResult<UserExists> = await db.pool.query(selectUser, [tag]);
+  const res: QueryResult<UserExists> = await db.pool.query(queries.checkExistenceInUsers, [tag]);
   return res.rows[0].exists;
 };
-
-const selectAppliedUser = `
-SELECT EXISTS (
-    SELECT 1 FROM users_applied WHERE discordId=$1
-)`;
 
 const checkUserInApplied = (db: DbInstance) => async (tag: string) => {
   db.logger.debug('Checking user in applied users...');
-  const res: QueryResult<UserExists> = await db.pool.query(selectAppliedUser, [tag]);
+  const res: QueryResult<UserExists> = await db.pool.query(queries.checkExistenceInAppliedUsers, [
+    tag,
+  ]);
   return res.rows[0].exists;
 };
 
-const insertUser = `INSERT INTO users_applied (discordId, address) VALUES($1, $2);`;
-
 const insertAppliedUser = (db: DbInstance) => async (tag: string, address: string) => {
   db.logger.debug('Inserting user...');
-  const res = await db.pool.query(insertUser, [tag, address]);
+  const res = await db.pool.query(queries.insertToAppliedUsers, [tag, address]);
   return res;
 };
 
