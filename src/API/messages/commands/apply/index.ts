@@ -1,15 +1,15 @@
+import { utils } from 'ethers';
 import { App } from 'src/app';
 import { UserStatus } from 'src/API/db';
-import { utils } from 'ethers';
-import type { Message } from '../../';
-import { replyStatus } from '../anyDm';
+import { Message as DiscordMessage } from 'discord.js';
+import { replyOnStatus } from '../anyDm';
 import { messages } from './messages';
 
 const { isAddress } = utils;
 
 interface ApplyProps {
   app: App;
-  message: Message;
+  message: DiscordMessage;
   address: string;
 }
 
@@ -20,7 +20,7 @@ const apply = async ({ app, message, address }: ApplyProps) => {
   const status = await app.db.checkUser(tag);
 
   if (status !== UserStatus.IN_SNAPSHOT) {
-    replyStatus(message, status);
+    replyOnStatus(message, status);
   } else {
     const addressOk = isAddress(address);
     if (!addressOk) {

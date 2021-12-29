@@ -1,5 +1,5 @@
-import { App } from 'src/app';
 import { Message as DiscordMessage } from 'discord.js';
+import { App } from 'src/app';
 import { apply } from './commands/apply';
 import { anyDm } from './commands/anyDm';
 import { processCommand, properMessage } from './helpers';
@@ -10,11 +10,9 @@ interface OnMessageProps {
 
 type KnownCommands = 'apply';
 
-type Message = DiscordMessage;
-
 const onMessage =
   ({ app }: OnMessageProps) =>
-  (message: Message) => {
+  async (message: DiscordMessage) => {
     try {
       if (!properMessage(message)) return;
 
@@ -22,11 +20,11 @@ const onMessage =
 
       switch (command) {
         case 'apply': {
-          apply({ app, message, address: arg });
+          await apply({ app, message, address: arg });
           break;
         }
         default:
-          anyDm({ app, message });
+          await anyDm({ app, message });
           break;
       }
     } catch (e) {
@@ -34,5 +32,5 @@ const onMessage =
     }
   };
 
-export type { KnownCommands, Message };
+export type { KnownCommands };
 export { onMessage };

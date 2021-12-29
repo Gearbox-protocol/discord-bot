@@ -1,14 +1,14 @@
+import { Message as DiscordMessage } from 'discord.js';
 import { App } from 'src/app';
 import { UserStatus } from 'src/API/db';
-import type { Message } from '../../';
 import { messages } from './messages';
 
 interface AnyDmProps {
   app: App;
-  message: Message;
+  message: DiscordMessage;
 }
 
-const replyStatus = (message: Message, status: UserStatus) => {
+const replyOnStatus = (message: DiscordMessage, status: UserStatus) => {
   switch (status) {
     case UserStatus.IN_SNAPSHOT:
       message.reply(messages.inSnapshot);
@@ -29,8 +29,8 @@ const anyDm = async ({ app, message }: AnyDmProps) => {
 
   const status = await app.db.checkUser(tag);
 
-  replyStatus(message, status);
+  replyOnStatus(message, status);
 };
 
 export type { AnyDmProps };
-export { anyDm, replyStatus };
+export { anyDm, replyOnStatus };

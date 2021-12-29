@@ -1,5 +1,5 @@
 import { COMMAND_PREFIX, COMMAND_SEPARATOR } from 'src/config';
-import type { Message } from '../';
+import { Message as DiscordMessage } from 'discord.js';
 
 const processCommand = (messageBody: string) => {
   const commandBody = messageBody.slice(COMMAND_PREFIX.length);
@@ -8,7 +8,7 @@ const processCommand = (messageBody: string) => {
   return [command.toLowerCase(), arg];
 };
 
-const properMessage = (message: Message) => {
+const properMessage = (message: DiscordMessage) => {
   const isBot = message.author.bot;
   const isDm = message.channel.type === 'DM';
   if (isBot || !isDm) return false;

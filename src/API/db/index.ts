@@ -36,9 +36,6 @@ const checkUser =
 const addUser =
   (db: DbInstance): Database['addUser'] =>
   async (tag, address) => {
-    const applied = await checkUserInApplied(db, tag);
-    if (applied) return;
-
     await insertAppliedUser(db, tag, address);
   };
 
