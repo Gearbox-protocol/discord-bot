@@ -72,10 +72,6 @@ const initTables = async (pool: Pool, logger: Logger) => {
 
   const [count, appliedCount] = await countUsers(pool);
   logger.debug(`Users table count: ${count}; Applied users table count: ${appliedCount}`);
-
-  if (count === 0) {
-    await insertUser(pool);
-  }
 };
 
 export type { DbConfig };

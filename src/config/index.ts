@@ -2,7 +2,7 @@ const isProduction = process.env.NODE_ENV === 'production';
 
 const BOT_SECRET_TOKEN = process.env.BOT_SECRET_KEY;
 const LOG_LEVEL = process.env.LOG_LEVEL || 'info';
-const APP_PORT = Number(process.env.APP_PORT) || 8000;
+const PORT = Number(process.env.PORT) || 8000;
 
 const commandSettings = {
   COMMAND_PREFIX: '!',
@@ -24,4 +24,4 @@ const dbConfig = {
   DATABASE_URL: process.env.DATABASE_URL,
 } as const;
 
-export { BOT_SECRET_TOKEN, LOG_LEVEL, APP_PORT, commandSettings, links, dbConfig, isProduction };
+export { BOT_SECRET_TOKEN, LOG_LEVEL, PORT, commandSettings, links, dbConfig, isProduction };

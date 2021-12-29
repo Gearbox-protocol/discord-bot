@@ -1,10 +1,11 @@
 import { Logger } from 'src/API/logger';
 import { createDbInstance, DbInterface, DbConfig } from './instance';
-import { checkUser, addUser, UserStatus } from './handlers';
+import { checkUser, addUser, isReady, UserStatus } from './handlers';
 
 interface Database {
   checkUser: (userTag: string) => Promise<UserStatus>;
   addUser: (userTag: string, userAddress: string) => Promise<void>;
+  isReady: () => Promise<boolean>;
 }
 
 const initDb = async (logger: Logger, config: DbConfig): Promise<Database> => {
@@ -14,6 +15,7 @@ const initDb = async (logger: Logger, config: DbConfig): Promise<Database> => {
   return {
     checkUser: checkUser(db),
     addUser: addUser(db),
+    isReady: isReady(db),
   };
 };
 

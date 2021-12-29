@@ -27,6 +27,11 @@ const queries = {
         ${AppliedUserTable.CREATED_AT} TIMESTAMP DEFAULT NOW()
     )`,
 
+  userTableExists: `SELECT EXISTS (
+      SELECT FROM information_schema.tables 
+      WHERE table_name = '${Tables.USERS}'
+  )`,
+
   countUsers: `SELECT count(*) FROM ${Tables.USERS}`,
   countAppliedUsers: `SELECT count(*) FROM ${Tables.USERS_APPLIED}`,
 

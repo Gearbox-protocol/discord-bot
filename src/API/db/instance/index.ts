@@ -1,7 +1,7 @@
 import { Pool } from 'pg';
 import { Logger } from 'src/API/logger';
 import { initTables, connectDb, DbConfig } from './init';
-import { checkUserInSnapshot, checkUserInApplied, insertAppliedUser } from './actions';
+import { checkUserInSnapshot, checkUserInApplied, insertAppliedUser, isReady } from './actions';
 
 interface DbInstance {
   pool: Pool;
@@ -13,7 +13,8 @@ interface DbInterface {
   actions: {
     checkUserInSnapshot: (tag: string) => Promise<boolean>;
     checkUserInApplied: (tag: string) => Promise<boolean>;
-    insertAppliedUser: (tag: string, address: string) => void;
+    insertAppliedUser: (tag: string, address: string) => Promise<void>;
+    isReady: () => Promise<boolean>;
   };
 }
 
@@ -32,6 +33,7 @@ const createDbInstance = async (logger: Logger, config: DbConfig): Promise<DbInt
       checkUserInSnapshot: checkUserInSnapshot(instance),
       checkUserInApplied: checkUserInApplied(instance),
       insertAppliedUser: insertAppliedUser(instance),
+      isReady: isReady(instance),
     },
   };
 };

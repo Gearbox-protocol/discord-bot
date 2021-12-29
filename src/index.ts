@@ -1,9 +1,9 @@
 import * as dotenv from 'dotenv';
-import { BOT_SECRET_TOKEN, LOG_LEVEL, dbConfig, isProduction } from 'src/config';
+import { BOT_SECRET_TOKEN, LOG_LEVEL, PORT, dbConfig, isProduction } from 'src/config';
 import { initBot } from './API/bot';
 import { initLogger } from './API/logger';
 import { initApp } from './app';
-import http from 'http';
+import { initServer } from './server';
 
 dotenv.config();
 
@@ -25,12 +25,10 @@ async function main() {
     });
 
     if (!BOT_SECRET_TOKEN) throw new Error('No discord API token');
-    await initBot({ app, token: BOT_SECRET_TOKEN });
+    const client = await initBot({ app, token: BOT_SECRET_TOKEN });
 
-    const host = '0.0.0.0';
-    const port = process.env.PORT || 3000;
-    http.createServer().listen(port);
-
+    const server = initServer({ app, client });
+    server.listen(PORT);
     app.logger.info('Listening...');
   } catch (e) {
     logger.error(e, 'main error');

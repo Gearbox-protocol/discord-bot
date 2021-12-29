@@ -10,7 +10,7 @@ Hey, it seems like your nickname is not on the list. All the info and details ca
 There are no new drop stages, as Gearbox is now in control of the community DAO! If you would like to become a contributor and help grow the protocol, check ${links.CONTRIBUTION_LINK}.
   `,
   inSnapshot: `
-Hey, seems like you are eligible for the early Discord drop, congrats! Send me your Ethereum wallet. Some rules for you to know:
+Hey, seems like you are eligible for the early Discord drop, congrats! Send me your Ethereum wallet by typing !apply <your address>. Some rules for you to know:
 
 - Do not send your exchange wallet address, because then you GEARs will be lost
 - Once submitted, you can’t change the address. Please be careful with what you paste below

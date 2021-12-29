@@ -26,4 +26,10 @@ const addUser =
     await db.actions.insertAppliedUser(tag, address);
   };
 
-export { checkUser, addUser, UserStatus };
+const isReady =
+  (db: DbInterface): Database['isReady'] =>
+  async () => {
+    return await db.actions.isReady();
+  };
+
+export { checkUser, addUser, isReady, UserStatus };

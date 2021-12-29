@@ -23,6 +23,7 @@ const initBot = async ({ app, token }: InitBotProps) => {
   app.logger.debug(`Bot logged in with token: ${token}`);
 
   app.logger.info('Bot created');
+
   return client;
 };
 
