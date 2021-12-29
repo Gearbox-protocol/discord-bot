@@ -3,6 +3,7 @@ import { BOT_SECRET_TOKEN, LOG_LEVEL, dbConfig, isProduction } from 'src/config'
 import { initBot } from './API/bot';
 import { initLogger } from './API/logger';
 import { initApp } from './app';
+import http from 'http';
 
 dotenv.config();
 
@@ -25,6 +26,10 @@ async function main() {
 
     if (!BOT_SECRET_TOKEN) throw new Error('No discord API token');
     await initBot({ app, token: BOT_SECRET_TOKEN });
+
+    const host = '0.0.0.0';
+    const port = process.env.PORT || 3000;
+    http.createServer().listen(port);
 
     app.logger.info('Listening...');
   } catch (e) {
