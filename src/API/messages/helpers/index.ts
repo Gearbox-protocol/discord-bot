@@ -20,6 +20,11 @@ const getTag = (message: DiscordMessage) => {
   return Buffer.from(tag).toString('base64');
 };
 
+const isFirstMessage = async (message: DiscordMessage) => {
+  const fetchedMessages = await message.channel.messages.fetch({ limit: 2 });
+  return fetchedMessages.size < 2;
+};
+
 const isCommand = (messageBody: string) => messageBody.startsWith(commandSettings.COMMAND_PREFIX);
 
-export { processCommand, properMessage, isCommand, getTag };
+export { processCommand, properMessage, isCommand, getTag, isFirstMessage };

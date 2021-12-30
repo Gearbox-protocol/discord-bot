@@ -5,7 +5,11 @@ import { onMessage } from 'src/API/messages';
 const allIntents = new Intents(32767);
 
 const botConfig: ClientOptions = {
-  intents: allIntents,
+  intents: [
+    Intents.FLAGS.DIRECT_MESSAGES,
+    Intents.FLAGS.DIRECT_MESSAGE_REACTIONS,
+    Intents.FLAGS.DIRECT_MESSAGE_TYPING,
+  ],
   partials: ['CHANNEL'],
 };
 

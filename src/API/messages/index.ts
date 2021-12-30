@@ -2,7 +2,7 @@ import { Message as DiscordMessage } from 'discord.js';
 import { App } from 'src/app';
 import { address } from './commands/address';
 import { anyDm } from './commands/anyDm';
-import { processCommand, properMessage } from './helpers';
+import { properMessage, isFirstMessage } from './helpers';
 
 interface OnMessageProps {
   app: App;
@@ -16,16 +16,13 @@ const onMessage =
     try {
       if (!properMessage(message)) return;
 
-      const [command, arg] = processCommand(message.content);
+      const isFirst = await isFirstMessage(message);
+      app.logger.debug(`Got message. First time: ${isFirst}`);
 
-      switch (command) {
-        case 'address': {
-          await address({ app, message, address: arg });
-          break;
-        }
-        default:
-          await anyDm({ app, message });
-          break;
+      if (isFirst) {
+        anyDm({ app, message });
+      } else {
+        address({ app, message, address: message.content });
       }
     } catch (e) {
       app.logger.error(e, 'onMessage error');
