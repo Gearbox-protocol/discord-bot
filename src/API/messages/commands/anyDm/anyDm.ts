@@ -1,17 +1,16 @@
 import { Message as DiscordMessage } from 'discord.js';
 import { App } from 'src/app';
 import { UserStatus } from 'src/API/db';
-import { getTag, exhaustiveCheck } from '../../helpers/helpers';
+import { getTag, exhaustiveCheck, GetTagProps } from '../../helpers/helpers';
 import { messages } from './messages';
-
-interface AnyDmProps {
-  app: App;
-  message: DiscordMessage;
-}
 
 const checkStatus = exhaustiveCheck('Wrong user status: ');
 
-const replyOnStatus = (message: DiscordMessage, status: UserStatus) => {
+interface ReplyOnStatusProps {
+  reply: DiscordMessage['reply'];
+}
+
+const replyOnStatus = (message: ReplyOnStatusProps, status: UserStatus) => {
   switch (status) {
     case UserStatus.IN_SNAPSHOT:
       message.reply(messages.inSnapshot);
@@ -27,6 +26,11 @@ const replyOnStatus = (message: DiscordMessage, status: UserStatus) => {
   }
 };
 
+interface AnyDmProps {
+  app: App;
+  message: GetTagProps & ReplyOnStatusProps;
+}
+
 const anyDm = async ({ app, message }: AnyDmProps) => {
   const tag = getTag(message);
   app.logger.debug(`Got a DM from: ${tag}`);
@@ -36,5 +40,5 @@ const anyDm = async ({ app, message }: AnyDmProps) => {
   replyOnStatus(message, status);
 };
 
-export type { AnyDmProps };
+export type { AnyDmProps, ReplyOnStatusProps };
 export { anyDm, replyOnStatus };

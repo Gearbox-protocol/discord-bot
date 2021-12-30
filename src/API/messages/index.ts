@@ -1,7 +1,7 @@
 import { Message as DiscordMessage } from 'discord.js';
 import { App } from 'src/app';
 import { address } from './commands/address';
-import { anyDm } from './commands/anyDm';
+import { anyDm } from './commands/anyDm/anyDm';
 import { properMessage, isFirstMessage } from './helpers/helpers';
 
 interface OnMessageProps {
