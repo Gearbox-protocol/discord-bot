@@ -8,7 +8,7 @@
     "baseUrl": ".",
     "rootDir": ".",
 
-    "types": ["node"],
+    "types": ["jest", "node"],
     "lib": ["esnext"],
 
     "strict": true,

@@ -5,3 +5,4 @@ dist
 .env.dev
 users.csv
 users-transformed.csv
+coverage
