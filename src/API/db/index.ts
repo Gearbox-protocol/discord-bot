@@ -1,7 +1,7 @@
 import { Logger } from 'src/API/logger';
 import { User } from './instance/actions';
 import { createDbInstance, DbInterface, DbConfig } from './instance';
-import { checkUser, addUser, isReady, UserStatus } from './handlers';
+import { checkUser, addUser, isReady, UserStatus } from './handlers/handlers';
 
 interface Database {
   checkUser: (userTag: string) => Promise<UserStatus>;
