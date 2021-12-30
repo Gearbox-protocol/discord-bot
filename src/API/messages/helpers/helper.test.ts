@@ -1,6 +1,6 @@
 import 'jest';
 import { mockDeep } from 'jest-mock-extended';
-import { tag, tagBse64 } from 'src/tests/helpers';
+import { tag, tagBase64 } from 'src/tests/helpers';
 import {
   properMessage,
   ProperMessageProps,
@@ -34,7 +34,7 @@ describe('Message helpers', () => {
     it('should return base64 tag', async () => {
       const msg: GetTagProps = { author: { tag } };
 
-      expect(getTag(msg)).toEqual(tagBse64);
+      expect(getTag(msg)).toEqual(tagBase64);
     });
   });
   describe('isFirstMessage', () => {

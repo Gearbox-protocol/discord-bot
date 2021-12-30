@@ -1,20 +1,19 @@
 import { utils } from 'ethers';
 import { App } from 'src/app';
 import { UserStatus } from 'src/API/db';
-import { Message as DiscordMessage } from 'discord.js';
-import { replyOnStatus } from '../anyDm/anyDm';
-import { getTag } from '../../helpers/helpers';
+import { replyOnStatus, ReplyOnStatusProps } from '../anyDm/anyDm';
+import { getTag, GetTagProps } from '../../helpers/helpers';
 import { messages } from './messages';
 
 const { isAddress } = utils;
 
 interface ApplyProps {
   app: App;
-  message: DiscordMessage;
+  message: GetTagProps & ReplyOnStatusProps;
   address: string;
 }
 
-const address = async ({ app, message, address: userAddress }: ApplyProps) => {
+const apply = async ({ app, message, address: userAddress }: ApplyProps) => {
   app.logger.debug(`Got address command with address: ${userAddress}`);
 
   const tag = getTag(message);
@@ -34,4 +33,4 @@ const address = async ({ app, message, address: userAddress }: ApplyProps) => {
 };
 
 export type { ApplyProps };
-export { address };
+export { apply };

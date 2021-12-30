@@ -1,6 +1,6 @@
 import 'jest';
 import { mockDeep } from 'jest-mock-extended';
-import { tag, tagBse64 } from 'src/tests/helpers';
+import { tag, tagBase64 } from 'src/tests/helpers';
 import { UserStatus } from 'src/API/db';
 import { replyOnStatus, ReplyOnStatusProps, AnyDmProps, anyDm } from './anyDm';
 import { messages } from './messages';
@@ -24,17 +24,18 @@ describe('Any DM', () => {
     });
   });
   describe('anyDm', () => {
-    it('should return be called properly', async () => {
+    it('should be called properly', async () => {
       const props = mockDeep<AnyDmProps>();
       props.message.author.tag = tag;
 
       props.app.db.checkUser
-        .calledWith(tagBse64)
+        .calledWith(tagBase64)
         .mockReturnValue(Promise.resolve(UserStatus.NOT_IN_SNAPSHOT));
 
-      anyDm(props);
+      await anyDm(props);
 
-      expect(props.app.db.checkUser).toBeCalledWith(tagBse64);
+      expect(props.app.db.checkUser).toBeCalledWith(tagBase64);
+      expect(props.message.reply).toBeCalledWith(messages.notInSnapshot);
     });
   });
 });

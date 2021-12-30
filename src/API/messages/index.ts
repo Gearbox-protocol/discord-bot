@@ -1,6 +1,6 @@
 import { Message as DiscordMessage } from 'discord.js';
 import { App } from 'src/app';
-import { address } from './commands/address';
+import { apply } from './commands/apply/apply';
 import { anyDm } from './commands/anyDm/anyDm';
 import { properMessage, isFirstMessage } from './helpers/helpers';
 
@@ -8,7 +8,7 @@ interface OnMessageProps {
   app: App;
 }
 
-type KnownCommands = 'address';
+type KnownCommands = 'apply';
 
 const onMessage =
   ({ app }: OnMessageProps) =>
@@ -22,7 +22,7 @@ const onMessage =
       if (isFirst) {
         await anyDm({ app, message });
       } else {
-        await address({ app, message, address: message.content });
+        await apply({ app, message, address: message.content });
       }
     } catch (e) {
       app.logger.error(e, 'onMessage error');
