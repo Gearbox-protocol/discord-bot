@@ -5,7 +5,7 @@ import { Logger } from 'src/API/logger';
 import { allUsers, allTables } from '../queries';
 import { initTables, UserCount } from './init';
 
-describe('init', () => {
+describe('Init', () => {
   describe('initTables', () => {
     it('should be properly called', async () => {
       const pool = mockDeep<Pool>();

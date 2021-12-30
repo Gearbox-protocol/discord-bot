@@ -14,7 +14,7 @@ import {
   isReady,
 } from './actions';
 
-describe('init', () => {
+describe('Actions', () => {
   describe('checkUserInSnapshot', () => {
     it('should return exists status', async () => {
       const instance = mockDeep<DbInstance>();

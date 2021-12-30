@@ -2,6 +2,8 @@ import http from 'http';
 import { Client } from 'discord.js';
 import { App } from 'src/app';
 
+const okResponseHeaders = { 'Content-Type': 'application/json' };
+
 const handleStatus =
   ({ app, client }: InitServerProps) =>
   async (res: http.ServerResponse) => {
@@ -13,7 +15,7 @@ const handleStatus =
 
       const json = JSON.stringify({ dbOk, botOk });
 
-      res.writeHead(200, { 'Content-Type': 'application/json' });
+      res.writeHead(200, okResponseHeaders);
       res.end(json);
     } catch (e) {
       app.logger.debug(e, 'Request handler error');
@@ -39,4 +41,5 @@ const initServer = (props: InitServerProps) => {
   return server;
 };
 
-export { initServer };
+export type { InitServerProps };
+export { initServer, handleStatus, okResponseHeaders };
