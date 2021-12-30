@@ -1,5 +1,5 @@
 import { Logger } from 'src/API/logger';
-import { User } from './instance/actions';
+import { User } from './instance/actions/actions';
 import { createDbInstance, DbInterface, DbConfig } from './instance';
 import { checkUser, addUser, isReady, UserStatus } from './handlers/handlers';
 

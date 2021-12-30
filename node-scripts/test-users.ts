@@ -4,7 +4,7 @@ import * as csv from 'fast-csv';
 import { QueryResult } from 'pg';
 import pino from 'pino';
 import { createDbInstance } from 'src/API/db/instance';
-import { User } from 'src/API/db/instance/actions';
+import { User } from 'src/API/db/instance/actions/actions';
 import { queries } from 'src/API/db/instance/queries';
 import { DATABASE_URL } from 'src/config';
 

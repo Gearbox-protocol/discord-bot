@@ -1,6 +1,6 @@
 import { Pool, QueryResult } from 'pg';
 import { Logger } from 'src/API/logger';
-import { queries, allUsers, allTables } from '../queries';
+import { allUsers, allTables } from '../queries';
 
 interface DbConfig {
   databaseUrl?: string;
@@ -43,5 +43,5 @@ const initTables = async (pool: Pool, logger: Logger) => {
   logger.debug(`Users table count: ${count}; Applied users table count: ${appliedCount}`);
 };
 
-export type { DbConfig };
+export type { DbConfig, UserCount };
 export { initTables, connectDb };

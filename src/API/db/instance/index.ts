@@ -8,7 +8,7 @@ import {
   isReady,
   getUser,
   User,
-} from './actions';
+} from './actions/actions';
 
 interface DbInstance {
   pool: Pool;

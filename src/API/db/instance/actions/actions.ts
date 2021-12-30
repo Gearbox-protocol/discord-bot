@@ -42,5 +42,5 @@ const isReady = (db: DbInstance) => async () => {
   return res.rows[0].exists;
 };
 
-export type { User };
+export type { User, Exists };
 export { checkUserInSnapshot, checkUserInApplied, insertAppliedUser, isReady, getUser };
