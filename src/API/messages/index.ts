@@ -1,8 +1,12 @@
-import { Message as DiscordMessage } from 'discord.js';
 import { App } from 'src/app';
-import { apply } from './commands/apply/apply';
-import { anyDm } from './commands/anyDm/anyDm';
-import { properMessage, isFirstMessage } from './helpers/helpers';
+import { apply, ApplyProps } from './commands/apply/apply';
+import { anyDm, AnyDmProps } from './commands/anyDm/anyDm';
+import {
+  properMessage,
+  isFirstMessage,
+  IsFirstMessageProps,
+  ProperMessageProps,
+} from './helpers/helpers';
 
 interface OnMessageProps {
   app: App;
@@ -10,9 +14,14 @@ interface OnMessageProps {
 
 type KnownCommands = 'apply';
 
+type Message = ApplyProps['message'] &
+  AnyDmProps['message'] &
+  IsFirstMessageProps &
+  ProperMessageProps & { content: string };
+
 const onMessage =
   ({ app }: OnMessageProps) =>
-  async (message: DiscordMessage) => {
+  async (message: Message) => {
     try {
       if (!properMessage(message)) return;
 
@@ -29,5 +38,5 @@ const onMessage =
     }
   };
 
-export type { KnownCommands };
+export type { KnownCommands, Message, OnMessageProps };
 export { onMessage };

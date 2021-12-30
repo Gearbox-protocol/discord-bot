@@ -37,12 +37,7 @@ const firstMessageLimit = { limit: 99 };
 
 const isFirstMessage = async (message: IsFirstMessageProps) => {
   const messages = await message.channel.messages.fetch(firstMessageLimit);
-  const userMessages = messages.filter((msg) => {
-    if (msg.author.bot) {
-      msg.delete();
-    }
-    return !msg.author.bot;
-  });
+  const userMessages = messages.filter((msg) => !msg.author.bot);
 
   return userMessages.size < 2;
 };
