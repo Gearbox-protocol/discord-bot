@@ -58,4 +58,7 @@ const queries = {
     )`,
 } as const;
 
-export { queries, Tables, UserTable, AppliedUserTable };
+const allUsers = `SELECT (${queries.countUsers}) AS users_count, (${queries.countAppliedUsers}) AS applied_users_count`;
+const allTables = `${queries.usersTable}; ${queries.appliedUsersTable}`;
+
+export { queries, allUsers, allTables, Tables, UserTable, AppliedUserTable };

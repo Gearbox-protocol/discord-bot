@@ -1,6 +1,6 @@
 import { Pool, QueryResult } from 'pg';
 import { Logger } from 'src/API/logger';
-import { queries } from '../queries';
+import { queries, allUsers, allTables } from '../queries';
 
 interface DbConfig {
   databaseUrl?: string;
@@ -31,15 +31,13 @@ interface UserCount {
   applied_users_count: string;
 }
 
-const allUsers = `SELECT (${queries.countUsers}) AS users_count, (${queries.countAppliedUsers}) AS applied_users_count`;
-
 const countUsers = async (pool: Pool) => {
   const res: QueryResult<UserCount> = await pool.query(allUsers);
   return [Number(res.rows[0].users_count), Number(res.rows[0].applied_users_count)];
 };
 
 const initTables = async (pool: Pool, logger: Logger) => {
-  await pool.query(`${queries.usersTable}; ${queries.appliedUsersTable}`);
+  await pool.query(allTables);
 
   const [count, appliedCount] = await countUsers(pool);
   logger.debug(`Users table count: ${count}; Applied users table count: ${appliedCount}`);

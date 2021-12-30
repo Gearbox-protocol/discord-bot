@@ -1,6 +1,6 @@
 import { Pool } from 'pg';
 import { Logger } from 'src/API/logger';
-import { initTables, connectDb, DbConfig } from './init';
+import { initTables, connectDb, DbConfig } from './init/init';
 import {
   checkUserInSnapshot,
   checkUserInApplied,
