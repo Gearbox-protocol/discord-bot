@@ -38,6 +38,8 @@ const queries = {
   insertToUsers: `INSERT INTO ${Tables.USERS} (${UserTable.ID}, ${UserTable.TOKENS}) VALUES($1, $2)`,
   insertToAppliedUsers: `INSERT INTO ${Tables.USERS_APPLIED} (${AppliedUserTable.ID}, ${AppliedUserTable.ADDRESS}) VALUES($1, $2)`,
 
+  getUser: `SELECT ${UserTable.ID}, ${UserTable.TOKENS}::numeric::int FROM ${Tables.USERS} WHERE ${UserTable.ID}=$1`,
+
   checkExistenceInUsers: `
     SELECT EXISTS (
         SELECT 1 FROM ${Tables.USERS} WHERE ${UserTable.ID}=$1

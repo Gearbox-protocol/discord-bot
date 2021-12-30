@@ -18,6 +18,17 @@ const checkUserInApplied = (db: DbInstance) => async (tag: string) => {
   return res.rows[0].exists;
 };
 
+interface User {
+  id: string;
+  tokens: number;
+}
+
+const getUser = (db: DbInstance) => async (tag: string) => {
+  db.logger.debug('Getting user...');
+  const res: QueryResult<User> = await db.pool.query(queries.getUser, [tag]);
+  return res.rows[0];
+};
+
 const insertAppliedUser = (db: DbInstance) => async (tag: string, address: string) => {
   db.logger.debug('Inserting user...');
   await db.pool.query(queries.insertToAppliedUsers, [tag, address]);
@@ -29,4 +40,5 @@ const isReady = (db: DbInstance) => async () => {
   return res.rows[0].exists;
 };
 
-export { checkUserInSnapshot, checkUserInApplied, insertAppliedUser, isReady };
+export type { User };
+export { checkUserInSnapshot, checkUserInApplied, insertAppliedUser, isReady, getUser };

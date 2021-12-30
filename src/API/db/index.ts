@@ -1,10 +1,11 @@
 import { Logger } from 'src/API/logger';
+import { User } from './instance/actions';
 import { createDbInstance, DbInterface, DbConfig } from './instance';
 import { checkUser, addUser, isReady, UserStatus } from './handlers';
 
 interface Database {
   checkUser: (userTag: string) => Promise<UserStatus>;
-  addUser: (userTag: string, userAddress: string) => Promise<void>;
+  addUser: (userTag: string, userAddress: string) => Promise<User>;
   isReady: () => Promise<boolean>;
 }
 

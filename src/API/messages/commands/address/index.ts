@@ -28,8 +28,8 @@ const address = async ({ app, message, address: userAddress }: ApplyProps) => {
       message.reply(messages.wrongAddress);
       return;
     }
-    await app.db.addUser(tag, userAddress);
-    message.reply(messages.success);
+    const { tokens } = await app.db.addUser(tag, userAddress);
+    message.reply(messages.success(tokens));
   }
 };
 

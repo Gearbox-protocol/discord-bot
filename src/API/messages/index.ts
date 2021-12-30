@@ -20,9 +20,9 @@ const onMessage =
       app.logger.debug(`Got message. First time: ${isFirst}`);
 
       if (isFirst) {
-        anyDm({ app, message });
+        await anyDm({ app, message });
       } else {
-        address({ app, message, address: message.content });
+        await address({ app, message, address: message.content });
       }
     } catch (e) {
       app.logger.error(e, 'onMessage error');
