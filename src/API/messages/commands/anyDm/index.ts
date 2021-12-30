@@ -1,7 +1,7 @@
 import { Message as DiscordMessage } from 'discord.js';
 import { App } from 'src/app';
 import { UserStatus } from 'src/API/db';
-import { getTag, exhaustiveCheck } from '../../helpers';
+import { getTag, exhaustiveCheck } from '../../helpers/helpers';
 import { messages } from './messages';
 
 interface AnyDmProps {
