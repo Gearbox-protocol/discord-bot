@@ -27,7 +27,7 @@ async function main() {
     .on('data', async ({ Author, Tokens }: UserCsvRow) => {
       const tag = Buffer.from(Author).toString('base64');
 
-      const res: QueryResult<User> = await instance.pool.query(queries.getUser, [tag]);
+      const res: QueryResult<User> = await instance.pool.query(`${queries.getUser};`, [tag]);
 
       if (res.rows.length !== 1) {
         logger.error(`User: ${Author}, with encoded tag: ${tag} not found in db`);

@@ -8,13 +8,15 @@ interface Exists {
 
 const checkUserInSnapshot = (db: DbInstance) => async (tag: string) => {
   db.logger.debug('Checking user in snapshot...');
-  const res: QueryResult<Exists> = await db.pool.query(queries.checkExistenceInUsers, [tag]);
+  const res: QueryResult<Exists> = await db.pool.query(`${queries.checkExistenceInUsers};`, [tag]);
   return res.rows[0].exists;
 };
 
 const checkUserInApplied = (db: DbInstance) => async (tag: string) => {
   db.logger.debug('Checking user in applied users...');
-  const res: QueryResult<Exists> = await db.pool.query(queries.checkExistenceInAppliedUsers, [tag]);
+  const res: QueryResult<Exists> = await db.pool.query(`${queries.checkExistenceInAppliedUsers};`, [
+    tag,
+  ]);
   return res.rows[0].exists;
 };
 
@@ -27,18 +29,18 @@ interface User {
 
 const getUser = (db: DbInstance) => async (tag: string) => {
   db.logger.debug('Getting user...');
-  const res: QueryResult<User> = await db.pool.query(queries.getUser, [tag]);
+  const res: QueryResult<User> = await db.pool.query(`${queries.getUser};`, [tag]);
   return res.rows[0];
 };
 
 const insertAppliedUser = (db: DbInstance) => async (tag: string, address: string) => {
   db.logger.debug('Inserting user...');
-  await db.pool.query(queries.insertToAppliedUsers, [tag, address]);
+  await db.pool.query(`${queries.insertToAppliedUsers};`, [tag, address]);
 };
 
 const isReady = (db: DbInstance) => async () => {
   db.logger.debug('Pinging...');
-  const res: QueryResult<Exists> = await db.pool.query(queries.userTableExists);
+  const res: QueryResult<Exists> = await db.pool.query(`${queries.userTableExists};`);
   return res.rows[0].exists;
 };
 

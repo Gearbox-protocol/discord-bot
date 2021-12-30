@@ -32,12 +32,12 @@ interface UserCount {
 }
 
 const countUsers = async (pool: Pool) => {
-  const res: QueryResult<UserCount> = await pool.query(allUsers);
+  const res: QueryResult<UserCount> = await pool.query(`${allUsers};`);
   return [Number(res.rows[0].users_count), Number(res.rows[0].applied_users_count)];
 };
 
 const initTables = async (pool: Pool, logger: Logger) => {
-  await pool.query(allTables);
+  await pool.query(`${allTables};`);
 
   const [count, appliedCount] = await countUsers(pool);
   logger.debug(`Users table count: ${count}; Applied users table count: ${appliedCount}`);

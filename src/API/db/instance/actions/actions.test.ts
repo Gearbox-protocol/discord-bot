@@ -21,7 +21,7 @@ describe('Actions', () => {
       const rows: QueryResult<Exists>['rows'] = [{ exists: true }];
 
       instance.pool.query
-        .calledWith(...([queries.checkExistenceInUsers] as any))
+        .calledWith(...([`${queries.checkExistenceInUsers};`] as any))
         .mockReturnValue(Promise.resolve({ rows }) as any);
 
       const exists = await checkUserInSnapshot(instance)(tagBase64);
@@ -35,7 +35,7 @@ describe('Actions', () => {
       const rows: QueryResult<Exists>['rows'] = [{ exists: true }];
 
       instance.pool.query
-        .calledWith(...([queries.checkExistenceInAppliedUsers] as any))
+        .calledWith(...([`${queries.checkExistenceInAppliedUsers};`] as any))
         .mockReturnValue(Promise.resolve({ rows }) as any);
 
       const exists = await checkUserInApplied(instance)(tagBase64);
@@ -49,7 +49,7 @@ describe('Actions', () => {
       const rows: QueryResult<User>['rows'] = [addUserResponse];
 
       instance.pool.query
-        .calledWith(...([queries.getUser] as any))
+        .calledWith(...([`${queries.getUser};`] as any))
         .mockReturnValue(Promise.resolve({ rows }) as any);
 
       const user = await getUser(instance)(tagBase64);
@@ -61,7 +61,7 @@ describe('Actions', () => {
     it('should be called properly', async () => {
       const instance = mockDeep<DbInstance>();
 
-      instance.pool.query.calledWith(...([queries.insertToAppliedUsers] as any));
+      instance.pool.query.calledWith(...([`${queries.insertToAppliedUsers};`] as any));
 
       await insertAppliedUser(instance)(tagBase64, address);
 
@@ -74,7 +74,7 @@ describe('Actions', () => {
       const rows: QueryResult<Exists>['rows'] = [{ exists: false }];
 
       instance.pool.query
-        .calledWith(...([queries.userTableExists] as any))
+        .calledWith(...([`${queries.userTableExists};`] as any))
         .mockReturnValue(Promise.resolve({ rows }) as any);
 
       const exists = await isReady(instance)();

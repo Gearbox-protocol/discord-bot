@@ -1,7 +1,7 @@
-const tag = 'blizzz93👾哈喽#1279';
+const tag = '123qwerty👾哈喽#1279';
 const tagBase64 = Buffer.from(tag).toString('base64');
 
-const address = '0xf13df765f3047850Cede5aA9fDF20a12A75f7F70';
+const address = '0x9654bA3Ae38e6Fa1fBa4Af58460bdE9F15e770e6';
 const wrongAddress = '123';
 
 const addUserResponse = {
