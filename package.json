@@ -8,7 +8,8 @@
     "start": "node dist/src/forever.js",
     "dev": "env-cmd -f .env.dev ts-node-dev --respawn --transpile-only src/index.ts | pino-pretty -c",
     "lint:ts": "eslint . --ext .tsx,.ts",
-    "format:ts": "eslint . --ext .tsx,.ts --fix"
+    "format:ts": "eslint . --ext .tsx,.ts --fix",
+    "csv": "ts-node node-scripts/encode-users.ts"
   },
   "author": "",
   "license": "ISC",
@@ -38,6 +39,7 @@
     "eslint-import-resolver-typescript": "^2.5.0",
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-prettier": "^4.0.0",
+    "fast-csv": "^4.3.6",
     "pino-pretty": "^7.3.0",
     "prettier": "^2.2.1",
     "rimraf": "^3.0.2",

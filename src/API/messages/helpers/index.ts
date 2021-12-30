@@ -21,8 +21,15 @@ const getTag = (message: DiscordMessage) => {
 };
 
 const isFirstMessage = async (message: DiscordMessage) => {
-  const fetchedMessages = await message.channel.messages.fetch({ limit: 2 });
-  return fetchedMessages.size < 2;
+  const messages = await message.channel.messages.fetch({ limit: 99 });
+  const userMessages = messages.filter((msg) => {
+    if (msg.author.bot) {
+      msg.delete();
+    }
+    return !msg.author.bot;
+  });
+
+  return userMessages.size < 2;
 };
 
 const isCommand = (messageBody: string) => messageBody.startsWith(commandSettings.COMMAND_PREFIX);
