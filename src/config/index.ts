@@ -15,13 +15,6 @@ const links = {
   DETAILS_LINK: '[here]',
 } as const;
 
-const dbConfig = {
-  PG_USER: process.env.PG_USER,
-  PG_PASSWORD: process.env.PG_PASSWORD,
-  PG_HOST: process.env.PG_HOST,
-  PG_PORT: process.env.PG_PORT,
-  PG_DATABASE: process.env.PG_DATABASE,
-  DATABASE_URL: process.env.DATABASE_URL,
-} as const;
+const { DATABASE_URL } = process.env;
 
-export { BOT_SECRET_TOKEN, LOG_LEVEL, PORT, commandSettings, links, dbConfig, isProduction };
+export { BOT_SECRET_TOKEN, LOG_LEVEL, PORT, commandSettings, links, DATABASE_URL, isProduction };

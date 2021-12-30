@@ -3,35 +3,12 @@ import { Logger } from 'src/API/logger';
 import { queries } from '../queries';
 
 interface DbConfig {
-  isProduction: boolean;
   databaseUrl?: string;
-  user?: string;
-  password?: string;
-  host?: string;
-  port?: string;
-  database?: string;
 }
 
-const makeConnectionString = ({
-  isProduction,
-  databaseUrl,
-  user,
-  password,
-  host,
-  port,
-  database,
-}: DbConfig): string => {
-  if (isProduction) {
-    if (!databaseUrl) throw new Error('Database config: No database url in production');
-    return databaseUrl;
-  }
-  if (!user) throw new Error('Database config: No user in development');
-  if (!password) throw new Error('Database config: No password in development');
-  if (!host) throw new Error('Database config: No host in development');
-  if (!port) throw new Error('Database config: No port in development');
-  if (!database) throw new Error('Database config: No database in development');
-
-  return `postgresql://${user}:${password}@${host}:${port}/${database}`;
+const makeConnectionString = ({ databaseUrl }: DbConfig): string => {
+  if (!databaseUrl) throw new Error('Database config: No database url');
+  return databaseUrl;
 };
 
 const connectDb = async (logger: Logger, config: DbConfig): Promise<Pool> => {

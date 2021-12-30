@@ -1,5 +1,5 @@
 import * as dotenv from 'dotenv';
-import { BOT_SECRET_TOKEN, LOG_LEVEL, PORT, dbConfig, isProduction } from 'src/config';
+import { BOT_SECRET_TOKEN, LOG_LEVEL, PORT, DATABASE_URL } from 'src/config';
 import { initBot } from './API/bot';
 import { initLogger } from './API/logger';
 import { initApp } from './app';
@@ -14,13 +14,7 @@ async function main() {
     const app = await initApp({
       logger,
       dbConfig: {
-        user: dbConfig.PG_USER,
-        password: dbConfig.PG_PASSWORD,
-        host: dbConfig.PG_HOST,
-        port: dbConfig.PG_PORT,
-        database: dbConfig.PG_DATABASE,
-        databaseUrl: dbConfig.DATABASE_URL,
-        isProduction,
+        databaseUrl: DATABASE_URL,
       },
     });
 

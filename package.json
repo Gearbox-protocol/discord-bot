@@ -7,9 +7,10 @@
     "build": "rimraf dist && tsc",
     "start": "node dist/src/forever.js",
     "dev": "env-cmd -f .env.dev ts-node-dev --respawn --transpile-only src/index.ts | pino-pretty -c",
+    "csv": "ts-node node-scripts/encode-users.ts",
+    "csv:test": "env-cmd -f .env.dev ts-node node-scripts/test-users.ts | pino-pretty -c",
     "lint:ts": "eslint . --ext .tsx,.ts",
-    "format:ts": "eslint . --ext .tsx,.ts --fix",
-    "csv": "ts-node node-scripts/encode-users.ts"
+    "format:ts": "eslint . --ext .tsx,.ts --fix"
   },
   "author": "",
   "license": "ISC",
