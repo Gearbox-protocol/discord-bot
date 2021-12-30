@@ -6,7 +6,9 @@
   "scripts": {
     "build": "rimraf dist && tsc",
     "start": "node dist/src/forever.js",
-    "dev": "env-cmd -f .env.dev ts-node-dev --respawn --transpile-only src/index.ts | pino-pretty -c"
+    "dev": "env-cmd -f .env.dev ts-node-dev --respawn --transpile-only src/index.ts | pino-pretty -c",
+    "lint:ts": "eslint . --ext .tsx,.ts",
+    "format:ts": "eslint . --ext .tsx,.ts --fix"
   },
   "author": "",
   "license": "ISC",
@@ -30,7 +32,7 @@
     "cross-env": "^7.0.3",
     "env-cmd": "^10.1.0",
     "eslint": "^7.32.0",
-    "eslint-config-airbnb": "^19.0.2",
+    "eslint-config-airbnb-base": "^15.0.0",
     "eslint-config-airbnb-typescript": "^12.3.1",
     "eslint-config-prettier": "^8.3.0",
     "eslint-import-resolver-typescript": "^2.5.0",

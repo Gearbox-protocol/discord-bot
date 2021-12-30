@@ -1,6 +1,6 @@
 import { QueryResult } from 'pg';
 import { queries } from '../queries';
-import { DbInstance } from '../';
+import type { DbInstance } from '..';
 
 interface Exists {
   exists: boolean;

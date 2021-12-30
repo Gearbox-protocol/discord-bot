@@ -1,13 +1,15 @@
 import { Message as DiscordMessage } from 'discord.js';
 import { App } from 'src/app';
 import { UserStatus } from 'src/API/db';
-import { getTag } from '../../helpers';
+import { getTag, exhaustiveCheck } from '../../helpers';
 import { messages } from './messages';
 
 interface AnyDmProps {
   app: App;
   message: DiscordMessage;
 }
+
+const checkStatus = exhaustiveCheck('Wrong user status: ');
 
 const replyOnStatus = (message: DiscordMessage, status: UserStatus) => {
   switch (status) {
@@ -21,6 +23,7 @@ const replyOnStatus = (message: DiscordMessage, status: UserStatus) => {
       message.reply(messages.applied);
       return;
     default:
+      checkStatus(status);
   }
 };
 

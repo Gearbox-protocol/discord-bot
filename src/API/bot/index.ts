@@ -2,7 +2,7 @@ import { Client, Intents, ClientOptions } from 'discord.js';
 import { App } from 'src/app';
 import { onMessage } from 'src/API/messages';
 
-const allIntents = new Intents(32767);
+// const allIntents = new Intents(32767);
 
 const botConfig: ClientOptions = {
   intents: [

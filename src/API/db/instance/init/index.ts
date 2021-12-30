@@ -1,6 +1,6 @@
 import { Pool, QueryResult } from 'pg';
 import { Logger } from 'src/API/logger';
-import { queries, Tables } from '../queries';
+import { queries } from '../queries';
 
 interface DbConfig {
   isProduction: boolean;
@@ -47,12 +47,6 @@ const connectDb = async (logger: Logger, config: DbConfig): Promise<Pool> => {
   logger.debug(config, 'Db instance created with config');
 
   return pool;
-};
-
-const testUser = ['Ymxpenp6OTPlk4jllr0jMTI3OQ==', 30000];
-
-const insertUser = async (pool: Pool) => {
-  await pool.query(queries.insertToUsers, testUser);
 };
 
 interface UserCount {

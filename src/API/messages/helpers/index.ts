@@ -16,7 +16,7 @@ const properMessage = (message: DiscordMessage) => {
 };
 
 const getTag = (message: DiscordMessage) => {
-  const tag = message.author.tag;
+  const { tag } = message.author;
   return Buffer.from(tag).toString('base64');
 };
 
@@ -27,4 +27,10 @@ const isFirstMessage = async (message: DiscordMessage) => {
 
 const isCommand = (messageBody: string) => messageBody.startsWith(commandSettings.COMMAND_PREFIX);
 
-export { processCommand, properMessage, isCommand, getTag, isFirstMessage };
+const exhaustiveCheck =
+  (msg: string) =>
+  (arg: never): never => {
+    throw new Error(`${msg}${arg}`);
+  };
+
+export { processCommand, properMessage, isCommand, getTag, isFirstMessage, exhaustiveCheck };

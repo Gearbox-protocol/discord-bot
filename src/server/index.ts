@@ -30,7 +30,7 @@ interface InitServerProps {
 const initServer = (props: InitServerProps) => {
   const server = http.createServer();
 
-  server.on('request', function (req, res) {
+  server.on('request', (req, res) => {
     if (req.url === '/status') {
       handleStatus(props)(res);
     }

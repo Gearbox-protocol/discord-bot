@@ -1,4 +1,4 @@
-import type { DbInterface, Database } from '../';
+import type { DbInterface, Database } from "..";
 
 enum UserStatus {
   IN_SNAPSHOT = 'IN_SNAPSHOT',
@@ -28,8 +28,6 @@ const addUser =
 
 const isReady =
   (db: DbInterface): Database['isReady'] =>
-  async () => {
-    return await db.actions.isReady();
-  };
+  async () => db.actions.isReady();
 
 export { checkUser, addUser, isReady, UserStatus };
