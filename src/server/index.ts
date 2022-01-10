@@ -35,6 +35,9 @@ const initServer = (props: InitServerProps) => {
   server.on('request', (req, res) => {
     if (req.url === '/status') {
       handleStatus(props)(res);
+    } else {
+      res.writeHead(404);
+      res.end();
     }
   });
 
