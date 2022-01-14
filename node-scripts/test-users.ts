@@ -21,7 +21,7 @@ async function main() {
     databaseUrl: DATABASE_URL,
   });
 
-  logger.info(`Start checking`);
+  logger.info('Start checking');
   fs.createReadStream(path.resolve(__dirname, '../', 'users.csv'))
     .pipe(csv.parse({ headers: true }))
     .on('data', async ({ Author, Tokens }: UserCsvRow) => {

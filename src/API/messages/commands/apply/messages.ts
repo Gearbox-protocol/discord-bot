@@ -2,9 +2,10 @@ import { links } from 'src/config';
 
 const messages = {
   wrongAddress: `
-It seems that you submitted your wallet address in format that I can’t understand. Please simply copy-paste the address in a regular text format. Do not send images or questions, I only need your wallet address.  `,
+It seems that you submitted your wallet address in format that I can’t understand. Please simply copy-paste the address in a regular text format. Do not send images or questions, I only need your wallet address.
+  `,
   success: (amount: number) => `
-Well done, that’s it! Your amount of tokens: ${amount}. Stay tuned in #announcements and wait for the claim process. And make sure to contribute to DAO, see some of the tasks ${links.TASKS_LINK}.
+Your amount of GEAR tokens: ${amount}. Stay tuned in the announcements channel ${links.ANNOUNCEMENTS} and wait for the claim process. And make sure to contribute to DAO, see some of the tasks ${links.TASKS_LINK}.
   `,
 } as const;
 

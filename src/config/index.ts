@@ -10,9 +10,11 @@ const commandSettings = {
 } as const;
 
 const links = {
-  TASKS_LINK: '<here>',
-  CONTRIBUTION_LINK: '<here>',
-  DETAILS_LINK: '[here]',
+  ANNOUNCEMENTS: 'https://discord.gg/EtVFtbV544',
+  TASKS_LINK: 'https://gearboxprotocol.notion.site/Gearbox-DAO-23966f122ae4421492819242b30a0e7a',
+  CONTRIBUTION_LINK:
+    'https://gearboxprotocol.notion.site/Gearbox-DAO-23966f122ae4421492819242b30a0e7a',
+  DETAILS_LINK: 'https://docs.gearbox.finance/overview/launch-phases/early-drop',
 } as const;
 
 const { DATABASE_URL } = process.env;
