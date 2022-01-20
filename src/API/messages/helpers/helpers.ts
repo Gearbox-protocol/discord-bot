@@ -33,7 +33,9 @@ interface IsFirstMessageProps {
   };
 }
 
-const firstMessageLimit = { limit: 99 };
+const LIMIT = 10;
+
+const firstMessageLimit = { limit: LIMIT };
 
 const isFirstMessage = async (message: IsFirstMessageProps) => {
   const messages = await message.channel.messages.fetch(firstMessageLimit);
