@@ -18,10 +18,10 @@ interface DbInstance {
 interface DbInterface {
   instance: DbInstance;
   actions: {
-    checkUserInSnapshot: (tag: string) => Promise<boolean>;
-    checkUserInApplied: (tag: string) => Promise<boolean>;
-    insertAppliedUser: (tag: string, address: string) => Promise<void>;
-    getUser: (tag: string) => Promise<User>;
+    checkUserInSnapshot: (id: string) => Promise<boolean>;
+    checkUserInApplied: (id: string) => Promise<boolean>;
+    insertAppliedUser: (id: string, address: string) => Promise<void>;
+    getUser: (id: string) => Promise<User>;
     isReady: () => Promise<boolean>;
   };
 }

@@ -1,7 +1,7 @@
 import { Message as DiscordMessage } from 'discord.js';
 import { App } from 'src/app';
 import { UserStatus } from 'src/API/db';
-import { getTag, exhaustiveCheck, GetTagProps } from '../../helpers/helpers';
+import { getId, exhaustiveCheck, GetIdProps } from '../../helpers/helpers';
 import { messages } from './messages';
 
 const checkStatus = exhaustiveCheck('Wrong user status: ');
@@ -28,14 +28,14 @@ const replyOnStatus = (message: ReplyOnStatusProps, status: UserStatus) => {
 
 interface AnyDmProps {
   app: App;
-  message: GetTagProps & ReplyOnStatusProps;
+  message: GetIdProps & ReplyOnStatusProps;
 }
 
 const anyDm = async ({ app, message }: AnyDmProps) => {
-  const tag = getTag(message);
-  app.logger.debug(`Got a DM from: ${tag}`);
+  const id = getId(message);
+  app.logger.debug(`Got a DM from: ${id}`);
 
-  const status = await app.db.checkUser(tag);
+  const status = await app.db.checkUser(id);
 
   replyOnStatus(message, status);
 };

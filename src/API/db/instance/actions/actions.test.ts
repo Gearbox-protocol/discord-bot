@@ -1,7 +1,7 @@
 import 'jest';
 import { QueryResult } from 'pg';
 import { mockDeep } from 'jest-mock-extended';
-import { tagBase64, address, addUserResponse } from 'src/tests/helpers';
+import { id, address, addUserResponse } from 'src/tests/helpers';
 import { queries } from '../queries';
 import type { DbInstance } from '..';
 import {
@@ -24,7 +24,7 @@ describe('Actions', () => {
         .calledWith(...([`${queries.checkExistenceInUsers};`] as any))
         .mockReturnValue(Promise.resolve({ rows }) as any);
 
-      const exists = await checkUserInSnapshot(instance)(tagBase64);
+      const exists = await checkUserInSnapshot(instance)(id);
 
       expect(exists).toEqual(true);
     });
@@ -38,7 +38,7 @@ describe('Actions', () => {
         .calledWith(...([`${queries.checkExistenceInAppliedUsers};`] as any))
         .mockReturnValue(Promise.resolve({ rows }) as any);
 
-      const exists = await checkUserInApplied(instance)(tagBase64);
+      const exists = await checkUserInApplied(instance)(id);
 
       expect(exists).toEqual(true);
     });
@@ -52,7 +52,7 @@ describe('Actions', () => {
         .calledWith(...([`${queries.getUser};`] as any))
         .mockReturnValue(Promise.resolve({ rows }) as any);
 
-      const user = await getUser(instance)(tagBase64);
+      const user = await getUser(instance)(id);
 
       expect(user).toEqual(addUserResponse);
     });
@@ -63,7 +63,7 @@ describe('Actions', () => {
 
       instance.pool.query.calledWith(...([`${queries.insertToAppliedUsers};`] as any));
 
-      await insertAppliedUser(instance)(tagBase64, address);
+      await insertAppliedUser(instance)(id, address);
 
       expect(instance.pool.query).toBeCalledTimes(1);
     });

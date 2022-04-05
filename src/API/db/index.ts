@@ -4,8 +4,8 @@ import { createDbInstance, DbInterface, DbConfig } from './instance';
 import { checkUser, addUser, isReady, UserStatus } from './handlers/handlers';
 
 interface Database {
-  checkUser: (userTag: string) => Promise<UserStatus>;
-  addUser: (userTag: string, userAddress: string) => Promise<User>;
+  checkUser: (id: string) => Promise<UserStatus>;
+  addUser: (id: string, userAddress: string) => Promise<User>;
   isReady: () => Promise<boolean>;
 }
 

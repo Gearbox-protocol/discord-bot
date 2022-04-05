@@ -1,6 +1,6 @@
 import 'jest';
 import { mockDeep } from 'jest-mock-extended';
-import { tagBase64, address, addUserResponse } from 'src/tests/helpers';
+import { id, address, addUserResponse } from 'src/tests/helpers';
 import { DbInterface, UserStatus } from '..';
 import { checkUser, addUser, isReady } from './handlers';
 
@@ -9,29 +9,29 @@ describe('DB public handlers', () => {
     it('should return not in snapshot', async () => {
       const db = mockDeep<DbInterface>();
 
-      db.actions.checkUserInSnapshot.calledWith(tagBase64).mockReturnValue(Promise.resolve(false));
+      db.actions.checkUserInSnapshot.calledWith(id).mockReturnValue(Promise.resolve(false));
 
-      const status = await checkUser(db)(tagBase64);
+      const status = await checkUser(db)(id);
 
       expect(status).toEqual(UserStatus.NOT_IN_SNAPSHOT);
     });
     it('should return applied', async () => {
       const db = mockDeep<DbInterface>();
 
-      db.actions.checkUserInSnapshot.calledWith(tagBase64).mockReturnValue(Promise.resolve(true));
-      db.actions.checkUserInApplied.calledWith(tagBase64).mockReturnValue(Promise.resolve(true));
+      db.actions.checkUserInSnapshot.calledWith(id).mockReturnValue(Promise.resolve(true));
+      db.actions.checkUserInApplied.calledWith(id).mockReturnValue(Promise.resolve(true));
 
-      const status = await checkUser(db)(tagBase64);
+      const status = await checkUser(db)(id);
 
       expect(status).toEqual(UserStatus.APPLIED);
     });
     it('should return in snapshot', async () => {
       const db = mockDeep<DbInterface>();
 
-      db.actions.checkUserInSnapshot.calledWith(tagBase64).mockReturnValue(Promise.resolve(true));
-      db.actions.checkUserInApplied.calledWith(tagBase64).mockReturnValue(Promise.resolve(false));
+      db.actions.checkUserInSnapshot.calledWith(id).mockReturnValue(Promise.resolve(true));
+      db.actions.checkUserInApplied.calledWith(id).mockReturnValue(Promise.resolve(false));
 
-      const status = await checkUser(db)(tagBase64);
+      const status = await checkUser(db)(id);
 
       expect(status).toEqual(UserStatus.IN_SNAPSHOT);
     });
@@ -40,12 +40,10 @@ describe('DB public handlers', () => {
     it('should add and return user', async () => {
       const db = mockDeep<DbInterface>();
 
-      db.actions.insertAppliedUser
-        .calledWith(tagBase64, address)
-        .mockReturnValue(Promise.resolve());
-      db.actions.getUser.calledWith(tagBase64).mockReturnValue(Promise.resolve(addUserResponse));
+      db.actions.insertAppliedUser.calledWith(id, address).mockReturnValue(Promise.resolve());
+      db.actions.getUser.calledWith(id).mockReturnValue(Promise.resolve(addUserResponse));
 
-      const user = await addUser(db)(tagBase64, address);
+      const user = await addUser(db)(id, address);
 
       expect(user.discordId).toEqual(addUserResponse.discordId);
     });

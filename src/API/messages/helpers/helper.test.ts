@@ -1,11 +1,11 @@
 import 'jest';
 import { mockDeep } from 'jest-mock-extended';
-import { tag, tagBase64 } from 'src/tests/helpers';
+import { id } from 'src/tests/helpers';
 import {
   properMessage,
   ProperMessageProps,
-  getTag,
-  GetTagProps,
+  getId,
+  GetIdProps,
   isFirstMessage,
   firstMessageLimit,
   IsFirstMessageProps,
@@ -30,11 +30,11 @@ describe('Message helpers', () => {
       expect(properMessage(msg)).toEqual(true);
     });
   });
-  describe('getTag', () => {
-    it('should return base64 tag', async () => {
-      const msg: GetTagProps = { author: { tag } };
+  describe('getId', () => {
+    it('should return base64 id', async () => {
+      const msg: GetIdProps = { author: { id } };
 
-      expect(getTag(msg)).toEqual(tagBase64);
+      expect(getId(msg)).toEqual(id);
     });
   });
   describe('isFirstMessage', () => {
