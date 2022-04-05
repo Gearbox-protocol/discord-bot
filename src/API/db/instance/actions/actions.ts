@@ -22,7 +22,6 @@ const checkUserInApplied = (db: DbInstance) => async (id: string) => {
 
 interface User {
   discordId: string;
-  originalDiscordId: string;
   numberInList: number;
   tokens: number;
 }

@@ -5,7 +5,6 @@ enum Tables {
 
 enum UserTable {
   ID = 'discordId',
-  ORIGINAL_ID = 'originalDiscordId',
   LIST_NUMBER = 'numberInList',
   TOKENS = 'tokens',
 }
@@ -20,7 +19,6 @@ const queries = {
   usersTable: `
     CREATE TABLE IF NOT EXISTS ${Tables.USERS} (
         ${UserTable.ID} TEXT NOT NULL PRIMARY KEY,
-        ${UserTable.ORIGINAL_ID} TEXT NOT NULL,
         ${UserTable.LIST_NUMBER} INTEGER NOT NULL,
         ${UserTable.TOKENS} MONEY NOT NULL
     )`,
@@ -40,7 +38,7 @@ const queries = {
   countAppliedUsers: `SELECT count(*) FROM ${Tables.USERS_APPLIED}`,
 
   insertToUsers: `INSERT INTO ${Tables.USERS} 
-      (${UserTable.ID}, ${UserTable.ORIGINAL_ID}, ${UserTable.LIST_NUMBER}, ${UserTable.TOKENS}) 
+      (${UserTable.ID}, ${UserTable.LIST_NUMBER}, ${UserTable.TOKENS}) 
       VALUES($1, $2, $3, $4)`,
   insertToAppliedUsers: `INSERT INTO ${Tables.USERS_APPLIED} 
       (${AppliedUserTable.ID}, ${AppliedUserTable.ADDRESS}) 

@@ -31,7 +31,7 @@ describe('Message helpers', () => {
     });
   });
   describe('getId', () => {
-    it('should return base64 id', async () => {
+    it('should return id', async () => {
       const msg: GetIdProps = { author: { id } };
 
       expect(getId(msg)).toEqual(id);
