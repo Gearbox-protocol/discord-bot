@@ -5,7 +5,7 @@ const wrongAddress = '123';
 
 const addUserResponse = {
   tokens: 1,
-  discordId: id,
+  discord_id: id,
   numberInList: 0,
 };
 

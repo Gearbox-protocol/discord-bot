@@ -4,13 +4,13 @@ enum Tables {
 }
 
 enum UserTable {
-  ID = 'discordId',
+  ID = 'discord_id',
   LIST_NUMBER = 'numberInList',
   TOKENS = 'tokens',
 }
 
 enum AppliedUserTable {
-  ID = 'discordId',
+  ID = 'discord_id',
   ADDRESS = 'address',
   CREATED_AT = 'created_at',
 }
@@ -39,7 +39,7 @@ const queries = {
 
   insertToUsers: `INSERT INTO ${Tables.USERS} 
       (${UserTable.ID}, ${UserTable.LIST_NUMBER}, ${UserTable.TOKENS}) 
-      VALUES($1, $2, $3, $4)`,
+      VALUES($1, $2, $3)`,
   insertToAppliedUsers: `INSERT INTO ${Tables.USERS_APPLIED} 
       (${AppliedUserTable.ID}, ${AppliedUserTable.ADDRESS}) 
       VALUES($1, $2)`,

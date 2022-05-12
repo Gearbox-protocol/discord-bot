@@ -9,7 +9,7 @@ interface UserCsvRow {
 }
 
 interface UserDetailsRow {
-  discordId: string;
+  discord_id: string;
   numberInList: number;
   tokens: string;
 }
@@ -24,7 +24,7 @@ fs.createReadStream(path.resolve(__dirname, '../', 'users.csv'))
   .transform((row, next): void => {
     const { Id, Author, Tokens } = row;
     return next(null, {
-      discordId: Author,
+      discord_id: Author,
       numberInList: Id,
       tokens: Tokens,
     });

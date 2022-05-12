@@ -45,7 +45,7 @@ describe('DB public handlers', () => {
 
       const user = await addUser(db)(id, address);
 
-      expect(user.discordId).toEqual(addUserResponse.discordId);
+      expect(user.discord_id).toEqual(addUserResponse.discord_id);
     });
   });
   describe('isReady', () => {
