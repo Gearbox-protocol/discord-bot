@@ -11,6 +11,7 @@
     "test:watch": "env-cmd -f .env.dev jest --watch",
     "csv": "ts-node node-scripts/encode-users.ts",
     "csv:test": "env-cmd -f .env.dev ts-node node-scripts/test-users.ts | pino-pretty -c",
+    "get:users": "env-cmd -f .env.dev ts-node node-scripts/get-all-users.ts | pino-pretty -c",
     "lint:ts": "eslint . --ext .tsx,.ts",
     "format:ts": "eslint . --ext .tsx,.ts --fix"
   },
