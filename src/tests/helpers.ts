@@ -6,7 +6,7 @@ const wrongAddress = '123';
 const addUserResponse = {
   tokens: 1,
   discord_id: id,
-  numberInList: 0,
+  number_in_list: 0,
 };
 
 export { id, address, wrongAddress, addUserResponse };

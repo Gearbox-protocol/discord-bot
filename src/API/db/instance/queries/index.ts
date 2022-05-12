@@ -5,7 +5,7 @@ enum Tables {
 
 enum UserTable {
   ID = 'discord_id',
-  LIST_NUMBER = 'numberInList',
+  LIST_NUMBER = 'number_in_list',
   TOKENS = 'tokens',
 }
 
