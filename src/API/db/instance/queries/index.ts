@@ -24,7 +24,7 @@ const queries = {
     )`,
   appliedUsersTable: `
     CREATE TABLE IF NOT EXISTS ${Tables.USERS_APPLIED} (
-        ${AppliedUserTable.ID} TEXT NOT NULL PRIMARY KEY REFERENCES ${Tables.USERS} (${UserTable.ID}),
+        ${AppliedUserTable.ID} TEXT NOT NULL PRIMARY KEY REFERENCES ${Tables.USERS} (${UserTable.ID}) ON UPDATE CASCADE,
         ${AppliedUserTable.ADDRESS} TEXT NOT NULL,
         ${AppliedUserTable.CREATED_AT} TIMESTAMP DEFAULT NOW()
     )`,
