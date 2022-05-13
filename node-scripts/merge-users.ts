@@ -3,19 +3,7 @@ import * as path from 'path';
 import pino from 'pino';
 import * as csv from 'fast-csv';
 
-interface UserCsvRow {
-  Id: number;
-  Author: string;
-  Tokens: string;
-}
-
-interface UsersMergedRow {
-  Id: number;
-  AuthorName: string;
-  Tokens: string;
-  DiscordId: string;
-  AuthorNameEncoded: string;
-}
+import { UserCsvRow, UsersMergedRow } from './types';
 
 interface User {
   guildId: string;

@@ -9,3 +9,11 @@ export interface UserTransformedCsvRow {
   number_in_list: number;
   tokens: string;
 }
+
+export interface UsersMergedRow {
+  Id: number;
+  AuthorName: string;
+  Tokens: string;
+  DiscordId: string;
+  AuthorNameEncoded: string;
+}
