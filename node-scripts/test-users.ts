@@ -8,11 +8,7 @@ import { User } from 'src/API/db/instance/actions/actions';
 import { queries } from 'src/API/db/instance/queries';
 import { DATABASE_URL } from 'src/config';
 
-interface UserCsvRow {
-  Id: number;
-  Author: string;
-  Tokens: string;
-}
+import { UserCsvRow } from './types';
 
 async function main() {
   const logger = pino();
