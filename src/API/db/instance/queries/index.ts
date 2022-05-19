@@ -4,14 +4,13 @@ enum Tables {
 }
 
 enum UserTable {
-  ID = 'discordId',
-  ORIGINAL_ID = 'originalDiscordId',
-  LIST_NUMBER = 'numberInList',
+  ID = 'discord_id',
+  LIST_NUMBER = 'number_in_list',
   TOKENS = 'tokens',
 }
 
 enum AppliedUserTable {
-  ID = 'discordId',
+  ID = 'discord_id',
   ADDRESS = 'address',
   CREATED_AT = 'created_at',
 }
@@ -20,13 +19,12 @@ const queries = {
   usersTable: `
     CREATE TABLE IF NOT EXISTS ${Tables.USERS} (
         ${UserTable.ID} TEXT NOT NULL PRIMARY KEY,
-        ${UserTable.ORIGINAL_ID} TEXT NOT NULL,
         ${UserTable.LIST_NUMBER} INTEGER NOT NULL,
         ${UserTable.TOKENS} MONEY NOT NULL
     )`,
   appliedUsersTable: `
     CREATE TABLE IF NOT EXISTS ${Tables.USERS_APPLIED} (
-        ${AppliedUserTable.ID} TEXT NOT NULL PRIMARY KEY REFERENCES ${Tables.USERS} (${UserTable.ID}),
+        ${AppliedUserTable.ID} TEXT NOT NULL PRIMARY KEY REFERENCES ${Tables.USERS} (${UserTable.ID}) ON UPDATE CASCADE,
         ${AppliedUserTable.ADDRESS} TEXT NOT NULL,
         ${AppliedUserTable.CREATED_AT} TIMESTAMP DEFAULT NOW()
     )`,
@@ -40,13 +38,14 @@ const queries = {
   countAppliedUsers: `SELECT count(*) FROM ${Tables.USERS_APPLIED}`,
 
   insertToUsers: `INSERT INTO ${Tables.USERS} 
-      (${UserTable.ID}, ${UserTable.ORIGINAL_ID}, ${UserTable.LIST_NUMBER}, ${UserTable.TOKENS}) 
-      VALUES($1, $2, $3, $4)`,
+      (${UserTable.ID}, ${UserTable.LIST_NUMBER}, ${UserTable.TOKENS}) 
+      VALUES($1, $2, $3)`,
   insertToAppliedUsers: `INSERT INTO ${Tables.USERS_APPLIED} 
       (${AppliedUserTable.ID}, ${AppliedUserTable.ADDRESS}) 
       VALUES($1, $2)`,
 
   getUser: `SELECT ${UserTable.ID}, ${UserTable.TOKENS}::numeric::int FROM ${Tables.USERS} WHERE ${UserTable.ID}=$1`,
+  updateUser: `UPDATE ${Tables.USERS} SET ${UserTable.ID} = $2 WHERE ${UserTable.ID}=$1 RETURNING *;`,
 
   checkExistenceInUsers: `
     SELECT EXISTS (

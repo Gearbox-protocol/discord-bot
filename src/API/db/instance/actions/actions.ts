@@ -6,36 +6,35 @@ interface Exists {
   exists: boolean;
 }
 
-const checkUserInSnapshot = (db: DbInstance) => async (tag: string) => {
+const checkUserInSnapshot = (db: DbInstance) => async (id: string) => {
   db.logger.debug('Checking user in snapshot...');
-  const res: QueryResult<Exists> = await db.pool.query(`${queries.checkExistenceInUsers};`, [tag]);
+  const res: QueryResult<Exists> = await db.pool.query(`${queries.checkExistenceInUsers};`, [id]);
   return res.rows[0].exists;
 };
 
-const checkUserInApplied = (db: DbInstance) => async (tag: string) => {
+const checkUserInApplied = (db: DbInstance) => async (id: string) => {
   db.logger.debug('Checking user in applied users...');
   const res: QueryResult<Exists> = await db.pool.query(`${queries.checkExistenceInAppliedUsers};`, [
-    tag,
+    id,
   ]);
   return res.rows[0].exists;
 };
 
 interface User {
-  discordId: string;
-  originalDiscordId: string;
-  numberInList: number;
+  discord_id: string;
+  number_in_list: number;
   tokens: number;
 }
 
-const getUser = (db: DbInstance) => async (tag: string) => {
+const getUser = (db: DbInstance) => async (id: string) => {
   db.logger.debug('Getting user...');
-  const res: QueryResult<User> = await db.pool.query(`${queries.getUser};`, [tag]);
+  const res: QueryResult<User> = await db.pool.query(`${queries.getUser};`, [id]);
   return res.rows[0];
 };
 
-const insertAppliedUser = (db: DbInstance) => async (tag: string, address: string) => {
+const insertAppliedUser = (db: DbInstance) => async (id: string, address: string) => {
   db.logger.debug('Inserting user...');
-  await db.pool.query(`${queries.insertToAppliedUsers};`, [tag, address]);
+  await db.pool.query(`${queries.insertToAppliedUsers};`, [id, address]);
 };
 
 const isReady = (db: DbInstance) => async () => {

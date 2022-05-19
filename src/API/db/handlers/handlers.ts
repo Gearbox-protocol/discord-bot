@@ -8,12 +8,12 @@ enum UserStatus {
 
 const checkUser =
   (db: DbInterface): Database['checkUser'] =>
-  async (tag: string): Promise<UserStatus> => {
-    const userCanApply = await db.actions.checkUserInSnapshot(tag);
+  async (id: string): Promise<UserStatus> => {
+    const userCanApply = await db.actions.checkUserInSnapshot(id);
 
     if (!userCanApply) return UserStatus.NOT_IN_SNAPSHOT;
 
-    const applied = await db.actions.checkUserInApplied(tag);
+    const applied = await db.actions.checkUserInApplied(id);
 
     if (applied) return UserStatus.APPLIED;
 
@@ -22,9 +22,9 @@ const checkUser =
 
 const addUser =
   (db: DbInterface): Database['addUser'] =>
-  async (tag, address) => {
-    await db.actions.insertAppliedUser(tag, address);
-    const user = await db.actions.getUser(tag);
+  async (id, address) => {
+    await db.actions.insertAppliedUser(id, address);
+    const user = await db.actions.getUser(id);
     return user;
   };
 

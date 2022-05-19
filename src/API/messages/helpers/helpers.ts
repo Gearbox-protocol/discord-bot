@@ -16,15 +16,13 @@ const properMessage = (message: ProperMessageProps) => {
   return true;
 };
 
-interface GetTagProps {
-  author: {
-    tag: DiscordMessage['author']['tag'];
-  };
+interface GetIdProps {
+  author: { id: DiscordMessage['author']['id'] };
 }
 
-const getTag = (message: GetTagProps) => {
-  const { tag } = message.author;
-  return Buffer.from(tag).toString('base64');
+const getId = (message: GetIdProps) => {
+  const { id } = message.author;
+  return id;
 };
 
 interface IsFirstMessageProps {
@@ -50,5 +48,5 @@ const exhaustiveCheck =
     throw new Error(`${msg}${arg}`);
   };
 
-export type { ProperMessageProps, GetTagProps, IsFirstMessageProps };
-export { properMessage, getTag, isFirstMessage, exhaustiveCheck, firstMessageLimit };
+export type { ProperMessageProps, GetIdProps, IsFirstMessageProps };
+export { properMessage, getId, isFirstMessage, exhaustiveCheck, firstMessageLimit };
