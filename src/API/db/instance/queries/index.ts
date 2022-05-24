@@ -44,7 +44,7 @@ const queries = {
       (${AppliedUserTable.ID}, ${AppliedUserTable.ADDRESS}) 
       VALUES($1, $2)`,
 
-  getUser: `SELECT ${UserTable.ID}, ${UserTable.TOKENS}::numeric::int FROM ${Tables.USERS} WHERE ${UserTable.ID}=$1`,
+  getUser: `SELECT ${UserTable.ID}, ${UserTable.LIST_NUMBER}, ${UserTable.TOKENS}::numeric::int FROM ${Tables.USERS} WHERE ${UserTable.ID}=$1`,
   updateUser: `UPDATE ${Tables.USERS} SET ${UserTable.ID} = $2 WHERE ${UserTable.ID}=$1 RETURNING *;`,
 
   checkExistenceInUsers: `
